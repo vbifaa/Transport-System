@@ -21,7 +21,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/StopBuses'
+                  $ref: '#/components/schemas/StopGet'
           description: ''
         '404':
           $ref: '#/components/responses/NotFound'
@@ -30,14 +30,13 @@ paths:
     post:
       security:
         - token: []
-      operationId: Создание рецепта
-      description: 'Доступно только авторизованному пользователю'
+      operationId: Создание Остановки
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RecipeCreateUpdate'
+              $ref: '#/components/schemas/StopCreateUpdate'
       responses:
         '201':
           content:
@@ -55,14 +54,33 @@ paths:
       - Остановки
 components:
   schemas:
-    StopBuses:
+    StopCreateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 25
+          example: 'Владыкино'
+        latitude:
+          type: number
+          fromat: double
+          example: 55.847983
+        longitude":
+          type: number
+          fromat: double
+          example: 37.590380
+      required:
+      - name
+      - latitude
+      - longitude
+
+    StopGet:
       type: object
       properties:
         buses:
           type: array
           items:
             type: string
-            maxLength: 25
             example: 'Владыкино'
       required:
       - buses
@@ -118,10 +136,6 @@ components:
         application/json:
           schema:
             type: object
-            properties:
-              message:
-                type: string
-
     ValidationError:
       description: 'Ошибки валидации в стандартном формате DRF'
       content:
