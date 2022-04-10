@@ -65,7 +65,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/EmptyResponse'
-          description: 'Остановка успешно создана'
+          description: 'Расстояние успешно добавлено'
         '400':
           description: 'Ошибки валидации в стандартном формате DRF'
           content:
@@ -177,6 +177,7 @@ components:
         application/json:
           schema:
             type: object
+            properties: []
     ValidationError:
       description: 'Ошибки валидации в стандартном формате DRF'
       content:
