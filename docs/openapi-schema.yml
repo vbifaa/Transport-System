@@ -3,7 +3,7 @@ info:
   title: 'Transport-System'
   version: '1.0'
 paths:
-  /api/stop/:
+  /api/stops/:
     get:
       operationId: Получение остановки
       description: 'Автобусы, проходящие через остановку'
@@ -23,6 +23,34 @@ paths:
                 items:
                   $ref: '#/components/schemas/StopBuses'
           description: ''
+        '404':
+          $ref: '#/components/responses/NotFound'
+      tags:
+      - Остановки
+    post:
+      security:
+        - token: []
+      operationId: Создание рецепта
+      description: 'Доступно только авторизованному пользователю'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeCreateUpdate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/EmptyResponse'
+          description: 'Остановка успешно создана'
+        '400':
+          description: 'Ошибки валидации в стандартном формате DRF'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
       tags:
       - Остановки
 components:
@@ -85,6 +113,12 @@ components:
           type: string
 
   responses:
+    EmptyResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+
     ValidationError:
       description: 'Ошибки валидации в стандартном формате DRF'
       content:
