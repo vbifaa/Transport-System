@@ -5,7 +5,7 @@ info:
 paths:
   /api/stops/:
     get:
-      operationId: Получение остановки
+      operationId: Получение Остановки
       description: 'Автобусы, проходящие через остановку'
       parameters:
         - name: name
@@ -28,9 +28,7 @@ paths:
       tags:
       - Остановки
     post:
-      security:
-        - token: []
-      operationId: Создание Остановки
+      operationId: Создание остановки
       parameters: []
       requestBody:
         content:
@@ -52,6 +50,27 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
       tags:
       - Остановки
+  /api/stops/add_distance/:
+      operationId: Добавление расстояния между остановками
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopDistance'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/EmptyResponse'
+          description: 'Остановка успешно создана'
+        '400':
+          description: 'Ошибки валидации в стандартном формате DRF'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
     StopCreateUpdate:
@@ -65,7 +84,7 @@ components:
           type: number
           fromat: double
           example: 55.847983
-        longitude":
+        longitude:
           type: number
           fromat: double
           example: 37.590380
@@ -84,6 +103,25 @@ components:
             example: 'Владыкино'
       required:
       - buses
+
+    StopDistance:
+      type: object
+      properties:
+        from_stop:
+          type: string
+          maxLength: 25
+          example: 'Владыкино'
+        to_stop:
+          type: string
+          maxLength: 25
+          example: 'Семёновская'
+        distance:
+          type: integer
+          minimum: 0
+          example: 5000
+          description: Расстояние в метрах. Должно быть больше либо равно реального расстояния на поверхности земли
+
+
 
     ValidationError:
       description: Стандартные ошибки валидации DRF
