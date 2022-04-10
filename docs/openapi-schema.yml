@@ -3,7 +3,55 @@ info:
   title: 'Transport-System'
   version: '1.0'
 paths:
+  /api/stops/:
+    get:
+      operationId: Получение Остановки
+      description: 'Автобусы, проходящие через остановку'
+      parameters:
+        - name: name
+          required: true
+          in: query
+          description: Поиск по названию остановки.
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StopGet'
+          description: ''
+        '404':
+          $ref: '#/components/responses/NotFound'
+      tags:
+      - Остановки
+    post:
+      operationId: Создание остановки
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopCreateUpdate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/EmptyResponse'
+          description: 'Остановка успешно создана'
+        '400':
+          description: 'Ошибки валидации в стандартном формате DRF'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+      tags:
+      - Остановки
   /api/stops/add_distance/:
+    post:
       operationId: Добавление расстояния между остановками
       parameters: []
       requestBody:
