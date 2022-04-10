@@ -118,6 +118,9 @@ components:
         application/json:
           schema:
             type: object
+            properties:
+              message:
+                type: string
 
     ValidationError:
       description: 'Ошибки валидации в стандартном формате DRF'
