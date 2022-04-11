@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Stop
+from .serializers import StopCreateSerializer
 
-# Create your views here.
+
+class StopViewSet(viewsets.ModelViewSet):
+    queryset = Stop.objects.all()
+    serializer_class = StopCreateSerializer
