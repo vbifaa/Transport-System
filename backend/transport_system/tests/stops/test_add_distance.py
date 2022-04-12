@@ -1,4 +1,3 @@
-from cgitb import reset
 import pytest
 
 from stops.models import Stop, StopDistance
@@ -48,8 +47,10 @@ class TestPostAPI:
 
         assert response.status_code == 400
         assert 'distance' in response.json()
-        assert response.json()['distance'] == ['Расстояние должно быть больше реального. '
-        'Реальное: 3377. Было введено: 336.']
+        assert response.json()['distance'] == [
+            'Расстояние должно быть больше реального. '
+            'Реальное: 3377. Было введено: 336.'
+        ]
         assert len(StopDistance.objects.all()) == 0
 
     @pytest.mark.django_db(transaction=True)

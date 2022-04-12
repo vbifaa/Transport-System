@@ -19,7 +19,7 @@ class StopDistanceSerializer(serializers.ModelSerializer):
         value = super().validate(attrs)
 
         from_stop = value['from_stop']
-        to_stop =  value['to_stop']
+        to_stop = value['to_stop']
 
         from_loc = (from_stop.latitude, from_stop.longitude)
         to_loc = (to_stop.latitude, to_stop.longitude)
@@ -29,8 +29,8 @@ class StopDistanceSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {
                     'distance': (
-                        f'Расстояние должно быть больше реального. '
-                        f'Реальное: {real_distance}. Было введено: {value["distance"]}.',
+                        f'Расстояние должно быть больше реального. Реальное: '
+                        f'{real_distance}. Было введено: {value["distance"]}.',
                     )
                 }
             )
