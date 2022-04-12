@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Stop(models.Model):
-    name = models.CharField('Название', max_length=200, unique=True)
+    name = models.CharField('Название', max_length=25, unique=True)
     latitude = models.FloatField('Широта')
     longitude = models.FloatField('Долгота')
 
@@ -24,6 +24,13 @@ class StopDistance(models.Model):
     distance = models.PositiveIntegerField(
         'Расстояние',
         validators=[MinValueValidator(
-            1, 'Расстояния между остановками должно быть больше нуля метров.'
+            1, 'Расстояния между остановками должно быть более нуля метров.'
         )]
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['from_stop', 'to_stop'], name='unique_distance'
+            )
+        ]

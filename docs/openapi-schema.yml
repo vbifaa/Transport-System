@@ -72,6 +72,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationError'
+        '404':
+          description: 'Ошибка нахождения остановки'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
       tags:
       - Остановки
 components:
