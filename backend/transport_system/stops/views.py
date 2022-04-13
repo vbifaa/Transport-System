@@ -32,5 +32,7 @@ class StopViewSet(viewsets.ModelViewSet):
         )
         return Response(status=status.HTTP_201_CREATED)
 
-    def retrieve(self, request, *args, **kwargs):
-        pass
+    def list(self, request, *args, **kwargs):
+        stop = get_object_or_404(Stop, name=request.GET['name'])
+        buses = Bus
+        return Response(request.GET, status=status.HTTP_200_OK)
