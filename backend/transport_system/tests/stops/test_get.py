@@ -1,22 +1,59 @@
-# import pytest
+import pytest
 
-# from stops.models import Stop
+from transport.models import Bus, BusStop, Stop
 
 
-# class TestGetAPI:
+class TestGetAPI:
 
-#     @pytest.mark.django_db(transaction=True)
-#     def test_correct_post_stop(self, client):
-#         data = {
-#             'name': 'Astankino',
-#         }
-#         response = client.get('/api/stops/', data=data)
+    @pytest.mark.django_db(transaction=True)
+    def test_correct_one_bus(self, client):
+        Stop.objects.create(name='Astankino', latitude=0, longitude=0)
+        Bus.objects.create(
+            name='123', route_length=1, stop_count=1, unique_stop_count=1,
+        )
+        BusStop.objects.create(
+            stop=Stop.objects.all()[0], bus=Bus.objects.all()[0],
+        )
 
-#         assert response.status_code == 200
-#         assert response.json() == ''
-#         assert len(Stop.objects.all()) == 1
+        data = {'name': 'Astankino'}
+        response = client.get('/api/stops/', data=data)
 
-#         obj = Stop.objects.all()[0]
-#         assert data['name'] == obj.name
-#         assert data['latitude'] == obj.latitude
-#         assert data['longitude'] == obj.longitude
+        assert response.status_code == 200
+        assert response.json() == {'buses': ['123']}
+
+    @pytest.mark.django_db(transaction=True)
+    def test_correct_two_buses(self, client):
+        for i in range(0, 4):
+            Stop.objects.create(
+                name='Astankino' + str(i), latitude=0, longitude=0,
+            )
+
+        Bus.objects.create(
+            name='123', route_length=1, stop_count=1, unique_stop_count=1,
+        )
+        Bus.objects.create(
+            name='374', route_length=1, stop_count=1, unique_stop_count=1,
+        )
+
+        for i in range(0, 3):
+            BusStop.objects.create(
+                stop=Stop.objects.get(name='Astankino' + str(i)),
+                bus=Bus.objects.get(name='123'),
+            )
+        for i in range(1, 4):
+            BusStop.objects.create(
+                stop=Stop.objects.get(name='Astankino' + str(i)),
+                bus=Bus.objects.get(name='374'),
+            )
+
+        response = client.get('/api/stops/', data={'name': 'Astankino0'})
+        assert response.status_code == 200
+        assert response.json() == {'buses': ['123']}
+
+        response = client.get('/api/stops/', data={'name': 'Astankino1'})
+        assert response.status_code == 200
+        assert response.json() == {'buses': ['123', '374']}
+
+        response = client.get('/api/stops/', data={'name': 'Astankino3'})
+        assert response.status_code == 200
+        assert response.json() == {'buses': ['374']}

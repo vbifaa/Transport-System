@@ -1,3 +1,4 @@
+from statistics import mode
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -56,6 +57,12 @@ class Bus(models.Model):
             1, 'Кол-во уникальных остановок должно быть больше нуля.'
         )]
     )
+    stops = models.ManyToManyField(
+        Stop,
+        verbose_name='Остановка',
+        related_name='buses',
+        through='BusStop'
+    )
 
 
 class BusStop(models.Model):
@@ -71,6 +78,7 @@ class BusStop(models.Model):
         on_delete=models.CASCADE,
         related_name='stops'
     )
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
