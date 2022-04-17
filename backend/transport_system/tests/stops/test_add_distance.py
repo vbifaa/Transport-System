@@ -1,6 +1,6 @@
 import pytest
 
-from stops.models import Stop, StopDistance
+from transport.models import Stop, StopDistance
 
 
 class TestPostAPI:

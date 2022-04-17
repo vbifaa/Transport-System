@@ -1,6 +1,6 @@
 import pytest
 
-from stops.models import Stop
+from transport.models import Stop
 
 
 class TestPostAPI:
