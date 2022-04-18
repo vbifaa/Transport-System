@@ -1,7 +1,5 @@
 import pytest
 
-from transport.models import Bus
-
 
 class TestGetAPI:
 

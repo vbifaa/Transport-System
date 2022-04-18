@@ -58,7 +58,7 @@ class BusCreateSerializer(serializers.ModelSerializer):
         stops = value['stops']
         is_round = value['is_roundtrip']
 
-        if len(stops) < 2  or (is_round and len(stops) < 3):
+        if len(stops) < 2 or (is_round and len(stops) < 3):
             raise serializers.ValidationError(
                 {'stops': 'Кол-во остановок должно быть более одной'}
             )

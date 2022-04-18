@@ -1,4 +1,3 @@
-from operator import is_
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from transport_system.actions import get_object_or_404

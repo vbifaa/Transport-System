@@ -1,5 +1,3 @@
-from dis import dis
-from statistics import mode
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -43,12 +41,14 @@ def compute_distance(from_stop_name, to_stop_name):
         from_stop__name=from_stop_name, to_stop__name=to_stop_name,
     ).first()
     if dist is None:
-        dist =  StopDistance.objects.filter(
+        dist = StopDistance.objects.filter(
             from_stop__name=to_stop_name, to_stop__name=from_stop_name,
         ).first()
     if dist is None:
         from rest_framework.exceptions import NotFound
-        raise NotFound(f'No distance between {from_stop_name} and {to_stop_name}')
+        raise NotFound(
+            f'No distance between {from_stop_name} and {to_stop_name}',
+        )
     return dist.distance
 
 
