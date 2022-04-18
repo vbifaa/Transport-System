@@ -1,3 +1,4 @@
+from dis import dis
 from statistics import mode
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -5,8 +6,8 @@ from django.db import models
 
 class Stop(models.Model):
     name = models.CharField('Название', max_length=25, unique=True)
-    latitude = models.FloatField('Широта')
     longitude = models.FloatField('Долгота')
+    latitude = models.FloatField('Широта')
 
 
 class StopDistance(models.Model):
@@ -35,6 +36,20 @@ class StopDistance(models.Model):
                 fields=['from_stop', 'to_stop'], name='unique_distance'
             )
         ]
+
+
+def compute_distance(from_stop_name, to_stop_name):
+    dist = StopDistance.objects.filter(
+        from_stop__name=from_stop_name, to_stop__name=to_stop_name,
+    ).first()
+    if dist is None:
+        dist =  StopDistance.objects.filter(
+            from_stop__name=to_stop_name, to_stop__name=from_stop_name,
+        ).first()
+    if dist is None:
+        from rest_framework.exceptions import NotFound
+        raise NotFound(f'No distance between {from_stop_name} and {to_stop_name}')
+    return dist.distance
 
 
 class Bus(models.Model):

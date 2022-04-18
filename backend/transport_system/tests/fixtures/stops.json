@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Biryulyovo Zapadnoye",
+        "longitude": 37.6517,
+        "latitude": 55.574371
+    },
+    {
+        "name": "Universam",
+        "longitude": 37.645687,
+        "latitude": 55.587655
+    },
+    {
+        "name": "Biryulyovo Tovarnaya",
+        "longitude": 37.653656,
+        "latitude": 55.592028
+    },
+    {
+        "name": "Biryusinka",
+        "longitude": 37.64839,
+        "latitude": 55.581065
+    },
+    {
+        "name": "Apteka",
+        "longitude": 37.652296,
+        "latitude": 55.580023
+    },
+    {
+        "name": "TETs 26",
+        "longitude": 37.642258,
+        "latitude": 55.580685
+    },
+    {
+        "name": "Pokrovskaya",
+        "longitude": 37.635517,
+        "latitude": 55.603601
+    },
+    {
+        "name": "Rossoshanskaya ulitsa",
+        "longitude": 37.605757,
+        "latitude": 55.595579
+    },
+    {
+        "name": "Prazhskaya",
+        "longitude": 37.603938,
+        "latitude": 55.611717
+    },
+    {
+        "name": "Tolstopaltsevo",
+        "longitude": 37.20829,
+        "latitude": 55.611087
+    },
+    {
+        "name": "Rasskazovka",
+        "longitude": 37.333324,
+        "latitude": 55.632761
+    }
+]

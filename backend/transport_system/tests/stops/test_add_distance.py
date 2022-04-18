@@ -13,6 +13,7 @@ class TestPostAPI:
         response = client.post('/api/stops/add_distance/', data=data)
 
         assert response.status_code == 404
+        assert response.json() == {'detail': 'Cant find from_stop'}
         assert len(StopDistance.objects.all()) == 0
 
     @pytest.mark.django_db(transaction=True)
@@ -23,6 +24,7 @@ class TestPostAPI:
         response = client.post('/api/stops/add_distance/', data=data)
 
         assert response.status_code == 404
+        assert response.json() == {'detail': 'Cant find to_stop'}
         assert len(StopDistance.objects.all()) == 0
 
     @pytest.mark.django_db(transaction=True)
@@ -39,8 +41,8 @@ class TestPostAPI:
 
     @pytest.mark.django_db(transaction=True)
     def test_distance_less_than_real_distance(self, client):
-        Stop.objects.create(name='1', latitude=24.34627, longitude=56.25103)
-        Stop.objects.create(name='2', latitude=24.33614, longitude=56.28245)
+        Stop.objects.create(name='1', longitude=24.34627, latitude=56.25103)
+        Stop.objects.create(name='2', longitude=24.33614, latitude=56.28245)
 
         data = {'from_stop': '1', 'to_stop': '2', 'distance': 336}
         response = client.post('/api/stops/add_distance/', data=data)
@@ -49,16 +51,16 @@ class TestPostAPI:
         assert 'distance' in response.json()
         assert response.json()['distance'] == [
             'Расстояние должно быть больше реального. '
-            'Реальное: 3377. Было введено: 336.'
+            'Реальное: 3549. Было введено: 336.'
         ]
         assert len(StopDistance.objects.all()) == 0
 
     @pytest.mark.django_db(transaction=True)
     def test_distance_correct_stop_distance(self, client):
-        Stop.objects.create(name='1', latitude=24.34627, longitude=56.25103)
-        Stop.objects.create(name='2', latitude=24.33614, longitude=56.28245)
+        Stop.objects.create(name='1', longitude=24.34627, latitude=56.25103)
+        Stop.objects.create(name='2', longitude=24.33614, latitude=56.28245)
 
-        data = {'from_stop': '1', 'to_stop': '2', 'distance': 3377}
+        data = {'from_stop': '1', 'to_stop': '2', 'distance': 3549}
         response = client.post('/api/stops/add_distance/', data=data)
 
         assert response.status_code == 201

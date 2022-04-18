@@ -1,0 +1,72 @@
+[
+    {
+        "from": "Biryulyovo Zapadnoye",
+        "to": "Biryulyovo Tovarnaya",
+        "distance": 2600
+    },
+    {
+        "from": "Biryulyovo Zapadnoye",
+        "to": "TETs 26",
+        "distance": 1100
+    },
+    {
+        "from": "Universam",
+        "to": "Biryusinka",
+        "distance": 760
+    },
+    {
+        "from": "Universam",
+        "to": "Biryulyovo Tovarnaya",
+        "distance": 1380
+    },
+    {
+        "from": "Universam",
+        "to": "Pokrovskaya",
+        "distance": 2460
+    },
+    {
+        "from": "Biryulyovo Tovarnaya",
+        "to": "Universam",
+        "distance": 890
+    },
+    {
+        "from": "Biryusinka",
+        "to": "Apteka",
+        "distance": 210
+    },
+    {
+        "from": "Biryusinka",
+        "to": "TETs 26",
+        "distance": 400
+    },
+    {
+        "from": "Apteka",
+        "to": "Biryulyovo Zapadnoye",
+        "distance": 1420
+    },
+    {
+        "from": "TETs 26",
+        "to": "Pokrovskaya",
+        "distance": 2850
+    },
+    {
+        "from": "Pokrovskaya",
+        "to": "Rossoshanskaya ulitsa",
+        "distance": 3140
+    },
+    {
+        "from": "Rossoshanskaya ulitsa",
+        "to": "Pokrovskaya",
+        "distance": 3210
+    },
+    {
+        "from": "Prazhskaya",
+        "to": "Pokrovskaya",
+        "distance": 2260
+    },
+    {
+        "from": "Tolstopaltsevo",
+        "to": "Rasskazovka",
+        "distance": 13800
+    }
+]

@@ -8,7 +8,7 @@ class TestPostAPI:
     @pytest.mark.django_db(transaction=True)
     def test_correct_post_stop(self, client):
         data = {
-            'name': 'Astankino', 'latitude': 32.34698, 'longitude': 76.92813,
+            'name': 'Astankino', 'longitude': 32.34698, 'latitude': 76.92813,
         }
         response = client.post('/api/stops/', data=data)
 
@@ -23,7 +23,7 @@ class TestPostAPI:
     @pytest.mark.django_db(transaction=True)
     def test_post_stop_long_name(self, client):
         name = '12345678901234567890123456'
-        data = {'name': name, 'latitude': 32.34698, 'longitude': 76.92813}
+        data = {'name': name, 'longitude': 32.34698, 'latitude': 76.92813}
         response = client.post('/api/stops/', data=data)
 
         assert response.status_code == 400
@@ -34,7 +34,7 @@ class TestPostAPI:
     def test_post_stop_with_exist_name(self, client):
         Stop.objects.create(name='Fulk', latitude=0, longitude=0)
 
-        data = {'name': 'Fulk', 'latitude': 32.34698, 'longitude': 76.92813}
+        data = {'name': 'Fulk', 'longitude': 32.34698, 'latitude': 76.92813}
         response = client.post('/api/stops/', data=data)
 
         assert response.status_code == 400
