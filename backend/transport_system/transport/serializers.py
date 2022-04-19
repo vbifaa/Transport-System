@@ -41,7 +41,7 @@ class StopDistanceSerializer(serializers.ModelSerializer):
 class BusGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bus
-        fields = ('name', 'route_length', 'stop_count', 'unique_stop_count')
+        fields = ('route_length', 'stop_count', 'unique_stop_count')
 
 
 class BusCreateSerializer(serializers.ModelSerializer):

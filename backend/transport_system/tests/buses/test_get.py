@@ -9,7 +9,6 @@ class TestGetAPI:
             pytest.param(
                 '297',
                 {
-                    'name': '297',
                     'stop_count': 6,
                     'route_length': 5880,
                     'unique_stop_count': 5,
@@ -18,7 +17,6 @@ class TestGetAPI:
             pytest.param(
                 '750',
                 {
-                    'name': '750',
                     'stop_count': 2,
                     'route_length': 27600,
                     'unique_stop_count': 2,
@@ -27,7 +25,6 @@ class TestGetAPI:
             pytest.param(
                 '635',
                 {
-                    'name': '635',
                     'stop_count': 11,
                     'route_length': 14810,
                     'unique_stop_count': 6,

@@ -7,7 +7,8 @@ paths:
     get:
       operationId: Получение Остановки
       description: 'Автобусы, проходящие через остановку'
-      parameters:
+      parameters: []
+      requestBody:
         - name: name
           required: true
           in: query
@@ -82,13 +83,13 @@ paths:
       - Остановки
   /api/buses/:
     get:
-      operationId: Получение Остановки
-      description: 'Автобусы, проходящие через остановку'
-      parameters:
+      operationId: Получение автобуса
+      parameters: []
+      requestBody:
         - name: name
           required: true
           in: query
-          description: Поиск по названию остановки.
+          description: Поиск по названию автобуса.
           schema:
             type: string
       responses:
@@ -98,12 +99,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/StopGet'
+                  $ref: '#/components/schemas/BusGet'
           description: ''
         '404':
           $ref: '#/components/responses/NotFound'
       tags:
-      - Остановки
+      - Автобусы
     post:
       operationId: Создание автобуса
       parameters: []
@@ -200,7 +201,21 @@ components:
       - stops
       - is_roundtrip
 
-
+    BusGet:
+      type: object
+      properties:
+        route_length:
+          type: integer
+          minimum: 0
+          example: 7580
+        stop_count:
+          type: integer
+          minimum: 0
+          example: 11
+        unique_stop_count:
+          type: integer
+          minimum: 0
+          example: 5
 
     ValidationError:
       description: Стандартные ошибки валидации DRF
