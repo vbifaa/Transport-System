@@ -34,7 +34,7 @@ class TestGetAPI:
     )
     @pytest.mark.django_db(transaction=True)
     def test_correct_get(self, client, response_buses, name, expected_bus):
-        response = client.get('/api/buses/', data={'name': name})
+        response = client.get(f'/api/buses/?name={name}')
 
         assert response.status_code == 200
         assert response.json() == expected_bus

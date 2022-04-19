@@ -7,8 +7,7 @@ paths:
     get:
       operationId: Получение Остановки
       description: 'Автобусы, проходящие через остановку'
-      parameters: []
-      requestBody:
+      parameters:
         - name: name
           required: true
           in: query
@@ -84,8 +83,7 @@ paths:
   /api/buses/:
     get:
       operationId: Получение автобуса
-      parameters: []
-      requestBody:
+      parameters:
         - name: name
           required: true
           in: query

@@ -15,8 +15,7 @@ class TestGetAPI:
             stop=Stop.objects.all()[0], bus=Bus.objects.all()[0],
         )
 
-        data = {'name': 'Astankino'}
-        response = client.get('/api/stops/', data=data)
+        response = client.get('/api/stops/?name=Astankino')
 
         assert response.status_code == 200
         assert response.json() == {'buses': ['123']}
@@ -46,14 +45,14 @@ class TestGetAPI:
                 bus=Bus.objects.get(name='374'),
             )
 
-        response = client.get('/api/stops/', data={'name': 'Astankino0'})
+        response = client.get('/api/stops/?name=Astankino0')
         assert response.status_code == 200
         assert response.json() == {'buses': ['123']}
 
-        response = client.get('/api/stops/', data={'name': 'Astankino1'})
+        response = client.get('/api/stops/?name=Astankino1')
         assert response.status_code == 200
         assert response.json() == {'buses': ['123', '374']}
 
-        response = client.get('/api/stops/', data={'name': 'Astankino3'})
+        response = client.get('/api/stops/?name=Astankino3')
         assert response.status_code == 200
         assert response.json() == {'buses': ['374']}
