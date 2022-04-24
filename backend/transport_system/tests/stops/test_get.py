@@ -9,7 +9,7 @@ class TestGetAPI:
     def test_correct_one_bus(self, client):
         Stop.objects.create(name='Astankino', latitude=0, longitude=0)
         Bus.objects.create(
-            name='123', route_length=1, stop_count=1, unique_stop_count=1,
+            name='123', velocity=47, route_length=1, stop_count=1, unique_stop_count=1,
         )
         BusStop.objects.create(
             stop=Stop.objects.all()[0], bus=Bus.objects.all()[0],
@@ -28,10 +28,10 @@ class TestGetAPI:
             )
 
         Bus.objects.create(
-            name='123', route_length=1, stop_count=1, unique_stop_count=1,
+            name='123', velocity=40, route_length=1, stop_count=1, unique_stop_count=1,
         )
         Bus.objects.create(
-            name='374', route_length=1, stop_count=1, unique_stop_count=1,
+            name='374', velocity=35, route_length=1, stop_count=1, unique_stop_count=1,
         )
 
         for i in range(0, 3):

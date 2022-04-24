@@ -1,3 +1,4 @@
+from turtle import speed
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -6,6 +7,9 @@ class Stop(models.Model):
     name = models.CharField('Название', max_length=25, unique=True)
     longitude = models.FloatField('Долгота')
     latitude = models.FloatField('Широта')
+    
+    in_id = models.PositiveIntegerField('Id вершины входа в остановку', null=True, unique=True)
+    out_id = models.PositiveIntegerField('Id вершины выхода из остановки', null=True, unique=True)
 
 
 class StopDistance(models.Model):
@@ -54,6 +58,12 @@ def compute_distance(from_stop_name, to_stop_name):
 
 class Bus(models.Model):
     name = models.CharField('Название', max_length=25, unique=True)
+    velocity = models.PositiveIntegerField(
+        'Скорость автобуса в км/ч',
+        validators=[MinValueValidator(
+            1, 'Скорость должна быть положительной.'
+        )]
+    )
     route_length = models.PositiveIntegerField(
         'Расстояние',
         validators=[MinValueValidator(
@@ -85,13 +95,11 @@ class BusStop(models.Model):
         Stop,
         verbose_name='Остановка через которую едет автобус',
         on_delete=models.CASCADE,
-        related_name='buses'
     )
     bus = models.ForeignKey(
         Bus,
         verbose_name='Автобус который едет через остановку',
         on_delete=models.CASCADE,
-        related_name='stops'
     )
 
     class Meta:

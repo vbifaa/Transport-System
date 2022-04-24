@@ -19,6 +19,7 @@ class TestPostAPI:
                         'Apteka',
                         'Biryulyovo Zapadnoye',
                     ],
+                    'velocity': 50,
                     'is_roundtrip': True,
                 },
                 {
@@ -36,10 +37,12 @@ class TestPostAPI:
                         'Tolstopaltsevo',
                         'Rasskazovka',
                     ],
+                    'velocity': 40,
                     'is_roundtrip': False,
                 },
                 {
                     'name': '750',
+                    'velocity': 40,
                     'stop_count': 3,
                     'route_length': 27600,
                     'unique_stop_count': 2,
@@ -57,10 +60,12 @@ class TestPostAPI:
                         'Pokrovskaya',
                         'Prazhskaya',
                     ],
+                    'velocity': 35,
                     'is_roundtrip': False,
                 },
                 {
                     'name': '635',
+                    'velocity': 35,
                     'stop_count': 11,
                     'route_length': 14810,
                     'unique_stop_count': 6,
@@ -92,12 +97,13 @@ class TestPostAPI:
         'data',
         [
             pytest.param(
-                {'name': '297', 'stops': [], 'is_roundtrip': True},
+                {'name': '297', 'velocity': 20, 'stops': [], 'is_roundtrip': True},
                 id='zero',
             ),
             pytest.param(
                 {
                     'name': '750',
+                    'velocity': 20,
                     'stops': ['Tolstopaltsevo'],
                     'is_roundtrip': False,
                 },
@@ -106,6 +112,7 @@ class TestPostAPI:
             pytest.param(
                 {
                     'name': '635',
+                    'velocity': 22,
                     'stops': ['Pokrovskaya', 'Pokrovskaya'],
                     'is_roundtrip': True,
                 },
@@ -121,4 +128,42 @@ class TestPostAPI:
         assert response.json() == {
             'stops': ['Кол-во остановок должно быть более одной'],
         }
+        assert len(Bus.objects.all()) == 0
+
+    @pytest.mark.django_db(transaction=True)
+    def test_round_last_stop_not_equal_first(self, client, stops):
+        data = {
+            'name': '635',
+            'stops': [
+                'Biryulyovo Tovarnaya',
+                'Universam',
+                'Biryusinka',
+                'Prazhskaya',
+            ],
+            'velocity': 24,
+            'is_roundtrip': True,
+        }
+        response = client.post('/api/buses/', data=data)
+
+        assert response.status_code == 400
+        assert response.json() == {
+            'stops': [
+                'В кольцевом маршруте начальная и '
+                'конечная остановка должны быть равны',
+            ],
+        }
+        assert len(Bus.objects.all()) == 0
+
+    @pytest.mark.django_db(transaction=True)
+    def test_long_name(self, client, stops):
+        data = {
+            'name': '12345678901234567890123456',
+            'velocity': 46,
+            'stops': ['Biryulyovo Tovarnaya', 'Universam'],
+            'is_roundtrip': False,
+        }
+        response = client.post('/api/buses/', data=data)
+
+        assert response.status_code == 400
+        assert 'name' in response.json()
         assert len(Bus.objects.all()) == 0

@@ -50,7 +50,7 @@ class BusCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bus
-        fields = ('name', 'is_roundtrip', 'stops')
+        fields = ('name', 'is_roundtrip', 'stops', 'velocity')
 
     def validate(self, attrs):
         value = super().validate(attrs)

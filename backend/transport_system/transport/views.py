@@ -46,7 +46,7 @@ class StopViewSet(viewsets.ModelViewSet):
         stop = get_object_or_404(
             Stop, name=request.GET['name'], msg='Cant find stop',
         )
-        buses = [bus.bus.name for bus in stop.buses.all()]
+        buses = [bus.name for bus in stop.buses.all()]
         return Response({'buses': buses}, status=status.HTTP_200_OK)
 
 
@@ -67,6 +67,7 @@ class BusViewSet(viewsets.ModelViewSet):
                 'name': request.POST['name'],
                 'stops': request.POST.getlist('stops'),
                 'is_roundtrip': request.POST['is_roundtrip'],
+                'velocity': request.POST['velocity'],
             },
         )
         serializer.is_valid(raise_exception=True)
@@ -86,6 +87,7 @@ class BusViewSet(viewsets.ModelViewSet):
 
         bus = Bus.objects.create(
             name=data['name'],
+            velocity=data['velocity'],
             route_length=route_length,
             stop_count=stop_count,
             unique_stop_count=0,
