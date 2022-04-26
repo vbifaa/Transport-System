@@ -99,7 +99,7 @@ class BusViewSet(viewsets.ModelViewSet):
             stop = get_object_or_404(
                 Stop, name=stop_name, msg='Cant find stop',
             )
-            bs, created = BusStop.objects.get_or_create(
+            _, created = BusStop.objects.get_or_create(
                 stop=stop, bus=bus,
             )
             if created:
