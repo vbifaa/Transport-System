@@ -21,7 +21,7 @@ class TestAllAPI:
             else:
                 response = client.get(request['url'], data=request['data'])
             expected_response = block['response']
-            
+
             assert expected_response['code'] == response.status_code, request
             if expected_response.get('json'):
                 assert expected_response['json'] == response.json()

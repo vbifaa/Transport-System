@@ -1,8 +1,10 @@
-from routing.models import Edge, Graph, Router
+from routing.models import Edge, Graph
 from routing.models import RouteInternalData as E
+from routing.models import Router
+
 
 class TestRouter:
-    
+
     def test_initialize_simple_graph(self, graph_1: Graph):
         router = Router(Graph())
         assert router._routes_internal_data == []
@@ -12,7 +14,7 @@ class TestRouter:
             [E(0, None), E(5, 0)],
             [E(10, 1), E(0, None)],
         ]
-    
+
     def test_initialize_complex_graph(self, graph_2: Graph):
         router = Router(Graph())
         assert router._routes_internal_data == []
@@ -51,11 +53,11 @@ class TestRouter:
             [None, E(20, 3), E(30, 1), E(0, None), E(17, 4)],
             [None, E(40, 6), E(23, 5), E(38, 2), E(0, None)],
         ]
-    
+
     def test_build_path_no_path(self, graph_2: Graph):
         router = Router(graph_2)
 
-        for v in range(1,5):
+        for v in range(1, 5):
             assert router.build_path(0, v) is None
             assert router.build_path(v, 0) is None
 

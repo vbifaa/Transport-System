@@ -1,6 +1,6 @@
 import haversine as hs
-
 from rest_framework import serializers
+
 from .models import Bus, Stop, StopDistance
 
 

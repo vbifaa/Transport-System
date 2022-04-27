@@ -1,12 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from transport.models import Stop
 from transport_system.actions import get_object_or_404
 
 from .models import router_wrapper
 from .serializers import RoutePartSerializer
-
-from transport.models import Stop
 
 
 class ApiRoute(APIView):

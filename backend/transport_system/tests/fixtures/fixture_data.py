@@ -1,12 +1,11 @@
 import json
-import pytest
 import os
 
+import pytest
+
 from routing.models import Edge, Graph, RouterWrapper
-
-from transport_system.actions import get_object_or_404
-
 from transport.models import Bus, Stop, StopDistance
+from transport_system.actions import get_object_or_404
 
 
 @pytest.fixture

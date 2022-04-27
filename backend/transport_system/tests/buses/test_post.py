@@ -1,8 +1,9 @@
 import pytest
-from ..mocks import mock_router
 
-from transport.models import Bus, BusStop
 from routing.models import RoutePart
+from transport.models import Bus, BusStop
+
+from ..mocks import mock_router
 
 
 class TestPostAPI:
@@ -78,7 +79,9 @@ class TestPostAPI:
         ],
     )
     @pytest.mark.django_db(transaction=True)
-    def test_correct_post(self, client, router_wrapper_with_stops_only, data, expected_bus):
+    def test_correct_post(
+        self, client, router_wrapper_with_stops_only, data, expected_bus,
+    ):
         assert len(RoutePart.objects.all()) == 11
 
         response = client.post('/api/buses/', data=data)
@@ -110,7 +113,12 @@ class TestPostAPI:
         'data',
         [
             pytest.param(
-                {'name': '297', 'velocity': 20, 'stops': [], 'is_roundtrip': True},
+                {
+                    'name': '297',
+                    'velocity': 20,
+                    'stops': [],
+                    'is_roundtrip': True,
+                },
                 id='zero',
             ),
             pytest.param(

@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
 import typing
+from dataclasses import dataclass, field
 
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -12,7 +12,7 @@ class Edge:
     from_v: int
     to_v: int
     weight: int
-        
+
 
 @dataclass
 class Graph:
@@ -53,7 +53,9 @@ class RouteInternalData:
 class Router:
 
     _routes_internal_data: field(
-        default_factory=typing.List[typing.List[typing.Optional[RouteInternalData]]],
+        default_factory=typing.List[
+            typing.List[typing.Optional[RouteInternalData]],
+        ],
     )
     graph: Graph
 
@@ -63,8 +65,10 @@ class Router:
 
         vertex_count = graph.get_vertex_count()
         for vertex in range(vertex_count):
-            self._relax_internal_data(vertex_count=vertex_count, vertex_through=vertex)
-    
+            self._relax_internal_data(
+                vertex_count=vertex_count, vertex_through=vertex,
+            )
+
     def _initialize(self, graph: Graph):
         vertex_count = graph.get_vertex_count()
         self._routes_internal_data = []
@@ -74,17 +78,30 @@ class Router:
 
             for edge_id in graph.get_incident_edges(vertex):
                 edge = graph.get_edge(edge_id)
-                route_internal_data = self._routes_internal_data[vertex][edge.to_v]
-                if route_internal_data is None or route_internal_data.weight > edge.weight:
-                    self._routes_internal_data[vertex][edge.to_v] = RouteInternalData(weight=edge.weight, prev_edge_id=edge_id)
-            self._routes_internal_data[vertex][vertex] = RouteInternalData(weight=0, prev_edge_id=None)
+                route_internal_data = self._routes_internal_data[vertex][
+                    edge.to_v
+                ]
+                if (route_internal_data is None
+                   or route_internal_data.weight > edge.weight):
+                    self._routes_internal_data[vertex][
+                        edge.to_v
+                    ] = RouteInternalData(
+                        weight=edge.weight, prev_edge_id=edge_id,
+                    )
+            self._routes_internal_data[vertex][vertex] = RouteInternalData(
+                weight=0, prev_edge_id=None,
+            )
 
     def _relax_internal_data(self, vertex_count: int, vertex_through: int):
         for vertex_from in range(vertex_count):
-            route_from = self._routes_internal_data[vertex_from][vertex_through]
+            route_from = self._routes_internal_data[vertex_from][
+                vertex_through
+            ]
             if route_from:
                 for vertex_to in range(vertex_count):
-                    route_to = self._routes_internal_data[vertex_through][vertex_to]
+                    route_to = self._routes_internal_data[vertex_through][
+                        vertex_to
+                    ]
                     if route_to:
                         self._relax_route(
                             vertex_from=vertex_from,
@@ -103,10 +120,12 @@ class Router:
         route_relaxing = self._routes_internal_data[vertex_from][vertex_to]
         candidate_weight = route_from.weight + route_to.weight
         if route_relaxing is None or candidate_weight < route_relaxing.weight:
-            self._routes_internal_data[vertex_from][vertex_to] = RouteInternalData(
+            self._routes_internal_data[vertex_from][
+                vertex_to
+            ] = RouteInternalData(
                 weight=candidate_weight,
                 prev_edge_id=(
-                    route_to.prev_edge_id 
+                    route_to.prev_edge_id
                     if route_to.prev_edge_id
                     else route_from.prev_edge_id
                 ),
@@ -115,7 +134,9 @@ class Router:
     def build_path(
         self, vertex_from: int, vertex_to: int,
     ) -> typing.Optional[typing.Tuple[float, typing.List[int]]]:
-        route_data: RouteInternalData = self._routes_internal_data[vertex_from][vertex_to]
+        route_data: RouteInternalData = self._routes_internal_data[
+            vertex_from
+        ][vertex_to]
         if route_data is None:
             return None
 
@@ -124,7 +145,9 @@ class Router:
         while edge_id is not None:
             edges.append(edge_id)
             to_v = self.graph.get_edge(edge_id).from_v
-            edge_id = self._routes_internal_data[vertex_from][to_v].prev_edge_id
+            edge_id = self._routes_internal_data[vertex_from][
+                to_v
+            ].prev_edge_id
         edges.reverse()
         return route_data.weight, edges
 
@@ -142,7 +165,8 @@ class RoutePart(models.Model):
         'Время в пути', validators=[MinValueValidator(0)]
     )
     span_count = models.PositiveIntegerField(
-        'Кол-во промежутков между остановками, которые надо проехать на автобусе',
+        ('Кол-во промежутков между остановками, '
+         'которые надо проехать на автобусе'),
         validators=[MinValueValidator(1)],
         default=1,
     )
@@ -164,7 +188,11 @@ class RouterWrapper:
         stop.save()
 
         edge_id = self.graph.add_edge(
-            Edge(from_v=stop.in_id, to_v=stop.out_id, weight=self.bus_time_wait),
+            Edge(
+                from_v=stop.in_id,
+                to_v=stop.out_id,
+                weight=self.bus_time_wait,
+            ),
         )
         RoutePart.objects.create(
             id=edge_id,
@@ -173,14 +201,17 @@ class RouterWrapper:
             time=self.bus_time_wait,
         )
 
-
-    def add_bus(self, bus_name: str, stops: typing.List[str], one_direction: bool):
+    def add_bus(
+        self, bus_name: str, stops: typing.List[str], one_direction: bool,
+    ):
         bus_velocity = Bus.objects.get(name=bus_name).velocity
         distances: typing.List[int] = [0]
 
         stop_count = len(stops)
         for i in range(stop_count - 1):
-            dist = compute_distance(from_stop_name=stops[i], to_stop_name=stops[i+1])
+            dist = compute_distance(
+                from_stop_name=stops[i], to_stop_name=stops[i+1],
+            )
             dist = dist * 0.06 / bus_velocity
             distances.append(distances[-1] + dist)
 
@@ -208,7 +239,9 @@ class RouterWrapper:
             stops.reverse()
             self.add_bus(bus_name=bus_name, stops=stops, one_direction=True)
 
-    def build_path(self, vertex_from_id, vertex_to_id) -> typing.Optional[tuple]:
+    def build_path(
+        self, vertex_from_id, vertex_to_id,
+    ) -> typing.Optional[tuple]:
         if self.router is None:
             self.router = Router(self.graph)
         res = self.router.build_path(

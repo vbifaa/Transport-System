@@ -1,19 +1,13 @@
-from operator import is_
-from rest_framework import viewsets, status
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from transport_system.actions import get_object_or_404
 from rest_framework.response import Response
 
-from .models import Bus, BusStop, Stop, StopDistance
-from .models import compute_distance
-from .serializers import (
-    BusCreateSerializer,
-    BusGetSerializer,
-    StopCreateSerializer,
-    StopDistanceSerializer
-)
-
 from routing.models import router_wrapper as rw
+from transport_system.actions import get_object_or_404
+
+from .models import Bus, BusStop, Stop, StopDistance, compute_distance
+from .serializers import (BusCreateSerializer, BusGetSerializer,
+                          StopCreateSerializer, StopDistanceSerializer)
 
 
 class StopViewSet(viewsets.ModelViewSet):

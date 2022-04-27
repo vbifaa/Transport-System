@@ -1,8 +1,9 @@
 import pytest
-from ..mocks import mock_router
 
-from transport.models import Stop
 from routing.models import RoutePart
+from transport.models import Stop
+
+from ..mocks import mock_router
 
 
 class TestPostAPI:

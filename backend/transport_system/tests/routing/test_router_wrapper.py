@@ -1,11 +1,11 @@
-from tracemalloc import stop
 import pytest
 
 from routing.models import Edge, Graph, RoutePart, RouterWrapper
 from transport.models import Stop
 
+
 class TestRouterWrapper:
-    
+
     @pytest.mark.django_db(transaction=True)
     def test_add_stop(self):
         router_wrapper = RouterWrapper(Graph())
@@ -17,7 +17,9 @@ class TestRouterWrapper:
         assert len(RoutePart.objects.all()) == 0
 
         router_wrapper.add_stop(stop_name)
-        assert router_wrapper.graph._edges == [Edge(from_v=0, to_v=1, weight=5)]
+        assert router_wrapper.graph._edges == [
+            Edge(from_v=0, to_v=1, weight=5),
+        ]
         assert router_wrapper.graph._incidence_lists == [[0], []]
         assert router_wrapper.router is None
 
@@ -193,7 +195,6 @@ class TestRouterWrapper:
         assert rp_edge.name == expected_data['name']
         assert rp_edge.span_count == expected_data['span_count']
 
-
     @pytest.mark.parametrize(
         'from_stop, to_stop, expected_weight, expected_data',
         [
@@ -208,21 +209,42 @@ class TestRouterWrapper:
                 'Tolstopaltsevo',
                 'Rasskazovka',
                 25.7,
-                [{'type': 'Bus', 'name': '750', 'time': 20.7, 'span_count': 1}],
+                [
+                    {
+                        'type': 'Bus',
+                        'name': '750',
+                        'time': 20.7,
+                        'span_count': 1,
+                    },
+                ],
                 id='One_bus_Tolstopaltsevo->Rasskazovka',
             ),
             pytest.param(
                 'Rossoshanskaya ulitsa',
                 'Pokrovskaya',
                 9.815,
-                [{'type': 'Bus', 'name': '828', 'time': 4.815, 'span_count': 1}],
+                [
+                    {
+                        'type': 'Bus',
+                        'name': '828',
+                        'time': 4.815,
+                        'span_count': 1,
+                    },
+                ],
                 id='One_bus_Rossoshanskaya ulitsa->Pokrovskaya',
             ),
             pytest.param(
                 'Biryulyovo Tovarnaya',
                 'Prazhskaya',
                 15.74,
-                [{'type': 'Bus', 'name': '635', 'time': 10.74, 'span_count': 5}],
+                [
+                    {
+                        'type': 'Bus',
+                        'name': '635',
+                        'time': 10.74,
+                        'span_count': 5,
+                    },
+                ],
                 id='One_bus_Prazhskaya->Pokrovskaya',
             ),
             pytest.param(
@@ -230,9 +252,19 @@ class TestRouterWrapper:
                 'Prazhskaya',
                 19.315,
                 [
-                    {'type': 'Bus', 'name': '828', 'time': 1.65, 'span_count': 1},
+                    {
+                        'type': 'Bus',
+                        'name': '828',
+                        'time': 1.65,
+                        'span_count': 1,
+                    },
                     {'type': 'Wait', 'name': 'TETs 26', 'time': 5},
-                    {'type': 'Bus', 'name': '635', 'time': 7.665, 'span_count': 2},
+                    {
+                        'type': 'Bus',
+                        'name': '635',
+                        'time': 7.665,
+                        'span_count': 2,
+                    },
                 ],
                 id='Many_buses_Biryulyovo Zapadnoye->Prazhskaya',
             ),
@@ -255,9 +287,11 @@ class TestRouterWrapper:
 
         from_id = Stop.objects.get(name=from_stop).in_id
         to_id = Stop.objects.get(name=to_stop).in_id
-        weight, data = router_wrapper.build_path(vertex_from_id=from_id, vertex_to_id=to_id)
+        weight, data = router_wrapper.build_path(
+            vertex_from_id=from_id, vertex_to_id=to_id,
+        )
         assert router_wrapper.router is not None
-        
+
         assert weight == expected_weight
         assert len(data) == len(expected_data)
 
@@ -285,6 +319,8 @@ class TestRouterWrapper:
         from_id = Stop.objects.get(name=from_stop).in_id
         to_id = Stop.objects.get(name=to_stop).in_id
 
-        res = router_wrapper.build_path(vertex_from_id=from_id, vertex_to_id=to_id)
+        res = router_wrapper.build_path(
+            vertex_from_id=from_id, vertex_to_id=to_id,
+        )
 
         assert res is None

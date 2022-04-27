@@ -1,7 +1,8 @@
-from routing.models import Graph, Edge
+from routing.models import Edge, Graph
+
 
 class TestGraph:
-    
+
     def test_add_vertex(self):
         graph = Graph()
 
@@ -16,7 +17,7 @@ class TestGraph:
 
         edge_id01 = Edge(from_v=v0, to_v=v1, weight=23)
         edge_id00 = Edge(from_v=v0, to_v=v0, weight=54)
-        
+
         edge_id01_id = graph.add_edge(edge_id01)
         edge_id00_id = graph.add_edge(edge_id00)
 
