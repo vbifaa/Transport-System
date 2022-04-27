@@ -154,6 +154,9 @@ class RouterWrapper:
     router: typing.Optional[Router] = None
     bus_time_wait: float = 5.0
 
+    def set_graph(self, graph: Graph):
+        self.graph = graph
+
     def add_stop(self, stop_name: str):
         stop = Stop.objects.get(name=stop_name)
         stop.in_id = self.graph.add_vertex()
@@ -218,3 +221,6 @@ class RouterWrapper:
             weight,
             [RoutePart.objects.get(id=id) for id in route],
         )
+
+
+router_wrapper = RouterWrapper(Graph())

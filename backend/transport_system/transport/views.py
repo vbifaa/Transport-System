@@ -1,3 +1,4 @@
+from operator import is_
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from transport_system.actions import get_object_or_404
@@ -12,10 +13,17 @@ from .serializers import (
     StopDistanceSerializer
 )
 
+from routing.models import router_wrapper as rw
+
 
 class StopViewSet(viewsets.ModelViewSet):
     queryset = Stop.objects.all()
     serializer_class = StopCreateSerializer
+
+    def create(self, request, *args, **kwargs):
+        obj = super().create(request, *args, **kwargs)
+        rw.add_stop(request.POST['name'])
+        return obj
 
     @action(['post'], detail=False)
     def add_distance(self, request, *args, **kwargs):
@@ -106,6 +114,8 @@ class BusViewSet(viewsets.ModelViewSet):
                 unique_stop_count += 1
         bus.unique_stop_count = unique_stop_count
         bus.save()
+
+        rw.add_bus(bus_name=data['name'], stops=stops, one_direction=is_round)
 
     def _compute_distance(self, stops, is_round):
         route_length = 0

@@ -1,0 +1,254 @@
+[
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Biryulyovo Zapadnoye",
+                "longitude": 37.6517,
+                "latitude": 55.574371
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Biryulyovo Tovarnaya",
+                "longitude": 37.653656,
+                "latitude": 55.592028
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Universam",
+                "longitude": 37.645687,
+                "latitude": 55.587655
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Prazhskaya",
+                "longitude": 37.603938,
+                "latitude":55.611717
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Biryulyovo Zapadnoye",
+                "to_stop": "Biryulyovo Tovarnaya",
+                "distance": 2600
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Biryulyovo Tovarnaya",
+                "to_stop": "Universam",
+                "distance": 890
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Universam",
+                "to_stop": "Prazhskaya",
+                "distance": 4650
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Universam",
+                "to_stop": "Biryulyovo Tovarnaya",
+                "distance": 1380
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Universam",
+                "to_stop": "Biryulyovo Zapadnoye",
+                "distance": 2500
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/buses/",
+            "data": {
+                "name": "297",
+                "stops": [
+                    "Biryulyovo Zapadnoye",
+                    "Biryulyovo Tovarnaya",
+                    "Universam",
+                    "Biryulyovo Zapadnoye"
+                ],
+                "velocity": 40,
+                "is_roundtrip": true
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/buses/",
+            "data": {
+                "name": "635",
+                "stops": [
+                    "Biryulyovo Tovarnaya",
+                    "Universam",
+                    "Prazhskaya"
+                ],
+                "velocity": 40,
+                "is_roundtrip": false
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/buses/",
+            "data": {"name": "297"}
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "unique_stop_count": 3,
+                "stop_count": 4,
+                "route_length": 5990
+            }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/buses/",
+            "data": {"name": "635"}
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "unique_stop_count": 3,
+                "stop_count": 5,
+                "route_length": 11570
+            }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/stops/",
+            "data": {"name": "Universam"}
+        },
+        "response": {
+            "code": 200, "json": {"buses": ["297", "635"]}
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/route/",
+            "data": {
+                "from": "Biryulyovo Zapadnoye",
+                "to": "Universam"
+            }
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "total_time": 10.235,
+                "items": [
+                    {
+                        "time": 5.0,
+                        "type": "WAIT",
+                        "stop_name": "Biryulyovo Zapadnoye"
+                    },
+                    {
+                        "span_count": 2,
+                        "bus": "297",
+                        "type": "BUS",
+                        "time": 5.235
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/route/",
+            "data": {
+                "from": "Biryulyovo Zapadnoye",
+                "to": "Prazhskaya"
+            }
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "total_time": 22.21,
+                "items": [
+                    {
+                        "time": 5.0,
+                        "type": "WAIT",
+                        "stop_name": "Biryulyovo Zapadnoye"
+                    },
+                    {
+                        "span_count": 2,
+                        "bus": "297",
+                        "type": "BUS",
+                        "time": 5.235
+                    },
+                    {
+                        "time": 5.0,
+                        "type": "WAIT",
+                        "stop_name": "Universam"
+                    },
+                    {
+                        "span_count": 1,
+                        "bus": "635",
+                        "type": "BUS",
+                        "time": 6.975
+                    }
+                ]
+            }
+        }
+    }
+]

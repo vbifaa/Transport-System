@@ -1,10 +1,13 @@
 import pytest
+from ..mocks import mock_router
 
 from transport.models import Stop
+from routing.models import RoutePart
 
 
 class TestPostAPI:
 
+    @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_correct_post_stop(self, client):
         data = {
@@ -20,6 +23,13 @@ class TestPostAPI:
         assert data['latitude'] == obj.latitude
         assert data['longitude'] == obj.longitude
 
+        assert len(RoutePart.objects.all()) == 1
+        rp = RoutePart.objects.all()[0]
+        assert rp.name == 'Astankino'
+        assert rp.type == 'WAIT'
+        assert rp.time == 5
+
+    @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_post_stop_long_name(self, client):
         name = '12345678901234567890123456'
@@ -30,6 +40,7 @@ class TestPostAPI:
         assert len(Stop.objects.all()) == 0
         assert 'name' in response.json()
 
+    @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_post_stop_with_exist_name(self, client):
         Stop.objects.create(name='Fulk', latitude=0, longitude=0)

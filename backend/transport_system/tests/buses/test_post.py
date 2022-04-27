@@ -1,10 +1,13 @@
 import pytest
+from ..mocks import mock_router
 
 from transport.models import Bus, BusStop
+from routing.models import RoutePart
 
 
 class TestPostAPI:
 
+    @mock_router
     @pytest.mark.parametrize(
         'data, expected_bus',
         [
@@ -75,7 +78,9 @@ class TestPostAPI:
         ],
     )
     @pytest.mark.django_db(transaction=True)
-    def test_correct_post(self, client, stops, data, expected_bus):
+    def test_correct_post(self, client, router_wrapper_with_stops_only, data, expected_bus):
+        assert len(RoutePart.objects.all()) == 11
+
         response = client.post('/api/buses/', data=data)
 
         assert response.status_code == 201
@@ -93,6 +98,14 @@ class TestPostAPI:
                 stop__name=stop_name, bus__name=data['name'],
             ).exists()
 
+        st_n = len(data['stops'])
+        print(st_n)
+        expected_rp_count = (st_n * (st_n - 1)) // 2
+        if not data['is_roundtrip']:
+            expected_rp_count *= 2
+        assert len(RoutePart.objects.all()) == expected_rp_count + 11
+
+    @mock_router
     @pytest.mark.parametrize(
         'data',
         [
@@ -130,6 +143,7 @@ class TestPostAPI:
         }
         assert len(Bus.objects.all()) == 0
 
+    @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_round_last_stop_not_equal_first(self, client, stops):
         data = {
@@ -154,6 +168,7 @@ class TestPostAPI:
         }
         assert len(Bus.objects.all()) == 0
 
+    @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_long_name(self, client, stops):
         data = {

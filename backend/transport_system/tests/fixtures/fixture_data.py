@@ -13,6 +13,9 @@ from transport.models import Bus, Stop, StopDistance
 def load_json():
     def run(json_path):
         script_dir = os.path.dirname(__file__)
+        if json_path == '1':
+            print(script_dir)
+            assert False
         file_path = os.path.join(script_dir, json_path)
         with open(file_path) as f:
             return json.load(f)

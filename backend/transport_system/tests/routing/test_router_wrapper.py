@@ -2,7 +2,7 @@ from tracemalloc import stop
 import pytest
 
 from routing.models import Edge, Graph, RoutePart, RouterWrapper
-from transport.models import Bus, Stop
+from transport.models import Stop
 
 class TestRouterWrapper:
     

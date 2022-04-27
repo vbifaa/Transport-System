@@ -1,12 +1,7 @@
-# from django.urls import include, path
-# from rest_framework import routers
+from django.urls import path
 
-# from .views import ApiGraph
+from .views import ApiRoute
 
-# router = routers.DefaultRouter()
-# router.register('graph', ApiGraph, basename='graph_api')
-
-
-# urlpatterns = [
-#     path('graph/', ApiGraph.as_view())
-# ]
+urlpatterns = [
+    path('route/', ApiRoute.as_view())
+]
