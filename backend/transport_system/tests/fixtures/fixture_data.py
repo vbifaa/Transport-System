@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from map.models import MapBus
+from map.models import MapBus, RGB
 from routing.models import Edge, Graph, RouterWrapper
 from transport.models import Bus, BusStop, Stop, StopDistance
 from transport_system.actions import get_object_or_404
@@ -208,6 +208,7 @@ def create_bus(stops, name, type):
         name=name,
         type=type,
         stops=stops,
+        color=RGB(0, 0, 0),
     )
 
 
@@ -225,6 +226,7 @@ def map_buses(load_json, response_buses):
             name=bus['name'],
             type='ROUND' if bus['is_roundtrip'] else 'BACKWARD',
             stops=bus['stops'],
+            color=RGB(0, 0, 0),
         )
 
 
@@ -240,4 +242,5 @@ def map_stops_with_coordeinates():
         name='345',
         type='BACKWARD',
         stops=['start', 'inter1', 'inter2', 'inter3', 'finish'],
+        color=RGB(0, 0, 0),
     )

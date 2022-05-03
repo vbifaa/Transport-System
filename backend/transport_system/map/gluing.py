@@ -6,7 +6,14 @@ from transport.models import Stop
 from .models import MapBus, MapStop
 
 
+MAX_X_MAP_ID = 0
+MAX_Y_MAP_ID = 0
+
+
 def gluing():
+    MAX_X_MAP_ID = 0
+    MAX_Y_MAP_ID = 0
+
     support_stops = set_support_stops()
     x_coord, y_coord = interpolation(support_stops)
     neighboors = set_neighboors()
@@ -30,13 +37,13 @@ def gluing():
         y_indx[stop] = max_neighb + 1
         xy_indx[x_id] = max_neighb + 1
 
-    print(x_indx)
-    print(y_indx)
     for stop in Stop.objects.all():
         name = stop.name
-        MapStop.objects.create(
+        ms = MapStop.objects.create(
             name=name, x_map_id=x_indx[name], y_map_id=y_indx[name],
         )
+        MAX_X_MAP_ID = max(MAX_X_MAP_ID, ms.x_map_id)
+        MAX_Y_MAP_ID = max(MAX_Y_MAP_ID, ms.y_map_id)
 
 
 def set_support_stops() -> typing.Set[str]:
