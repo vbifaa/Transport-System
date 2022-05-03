@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'transport.apps.TransportConfig',
     'routing.apps.RoutingConfig',
+    'map.apps.MapConfig',
 ]
 
 MIDDLEWARE = [

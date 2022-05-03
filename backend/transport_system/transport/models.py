@@ -20,25 +20,25 @@ class StopDistance(models.Model):
         Stop,
         verbose_name='Остановка отправления',
         on_delete=models.CASCADE,
-        related_name='distnace_to'
+        related_name='distnace_to',
     )
     to_stop = models.ForeignKey(
         Stop,
         verbose_name='Остановка прибытия',
         on_delete=models.CASCADE,
-        related_name='distnace_from'
+        related_name='distnace_from',
     )
     distance = models.PositiveIntegerField(
         'Расстояние',
         validators=[MinValueValidator(
-            1, 'Расстояния между остановками должно быть более нуля метров.'
+            1, 'Расстояния между остановками должно быть более нуля метров.',
         )]
     )
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['from_stop', 'to_stop'], name='unique_distance'
+                fields=['from_stop', 'to_stop'], name='unique_distance',
             )
         ]
 
@@ -64,32 +64,32 @@ class Bus(models.Model):
     velocity = models.PositiveIntegerField(
         'Скорость автобуса в км/ч',
         validators=[MinValueValidator(
-            1, 'Скорость должна быть положительной.'
+            1, 'Скорость должна быть положительной.',
         )]
     )
     route_length = models.PositiveIntegerField(
         'Расстояние',
         validators=[MinValueValidator(
-            1, 'Расстояния между остановками должно быть более нуля метров.'
+            1, 'Расстояния между остановками должно быть более нуля метров.',
         )]
     )
     stop_count = models.PositiveIntegerField(
         'Кол-во остановок',
         validators=[MinValueValidator(
-            1, 'Кол-во остановок должно быть больше нуля.'
+            1, 'Кол-во остановок должно быть больше нуля.',
         )]
     )
     unique_stop_count = models.PositiveIntegerField(
         'Кол-во уникальных остановок',
         validators=[MinValueValidator(
-            1, 'Кол-во уникальных остановок должно быть больше нуля.'
+            1, 'Кол-во уникальных остановок должно быть больше нуля.',
         )]
     )
     stops = models.ManyToManyField(
         Stop,
         verbose_name='Остановка',
         related_name='buses',
-        through='BusStop'
+        through='BusStop',
     )
 
 
@@ -108,6 +108,6 @@ class BusStop(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['stop', 'bus'], name='unique_bus_stop'
+                fields=['stop', 'bus'], name='unique_bus_stop',
             )
         ]

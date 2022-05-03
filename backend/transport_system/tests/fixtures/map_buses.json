@@ -1,0 +1,46 @@
+[
+    {
+        "name": "297",
+        "stops": [
+            "Biryulyovo Zapadnoye",
+            "Biryulyovo Tovarnaya",
+            "Universam",
+            "Biryusinka",
+            "Apteka",
+            "Biryulyovo Zapadnoye"
+        ],
+        "is_roundtrip": true
+    },
+    {
+        "name": "635",
+        "stops": [
+            "Biryulyovo Tovarnaya",
+            "Universam",
+            "Biryusinka",
+            "TETs 26",
+            "Pokrovskaya",
+            "Prazhskaya"
+        ],
+        "is_roundtrip": false
+    },
+    {
+        "name": "828",
+        "stops": [
+            "Biryulyovo Zapadnoye",
+            "TETs 26",
+            "Biryusinka",
+            "Universam",
+            "Pokrovskaya",
+            "Rossoshanskaya ulitsa"
+        ],
+        "is_roundtrip": false
+    },
+    {
+        "name": "750",
+        "stops": [
+            "Tolstopaltsevo",
+            "Rasskazovka"
+        ],
+        "is_roundtrip": false
+    }
+]

@@ -3,8 +3,9 @@ import os
 
 import pytest
 
+from map.models import MapBus
 from routing.models import Edge, Graph, RouterWrapper
-from transport.models import Bus, Stop, StopDistance
+from transport.models import Bus, BusStop, Stop, StopDistance
 from transport_system.actions import get_object_or_404
 
 
@@ -138,3 +139,104 @@ def router_wrapper(response_buses, router_wrapper_with_stops_only):
         one_direction=False,
     )
     return router_wrapper_with_stops_only
+
+
+@pytest.fixture
+def backward_bus():
+    create_bus(
+        name='236',
+        type='BACKWARD',
+        stops=['Astankino', 'Vazhino', 'Kalugino'],
+    )
+
+
+@pytest.fixture
+def round_bus():
+    create_bus(
+        name='849',
+        type='ROUND',
+        stops=['AstankinoR', 'VazhinoR', 'KaluginoR', 'AstankinoR'],
+    )
+
+
+@pytest.fixture
+def round_bus_two_support():
+    create_bus(
+        name='849',
+        type='ROUND',
+        stops=['Astankino', 'Vazhino', 'Kalugino', 'Astankino'],
+    )
+    create_bus(
+        name='345',
+        type='BACKWARD',
+        stops=['Vazhino', 'Gamino', 'Lazino'],
+    )
+
+
+@pytest.fixture
+def round_bus_three_support():
+    create_bus(
+        name='849',
+        type='ROUND',
+        stops=['Astankino', 'Vazhino', 'Vaznaya', 'Kalugino', 'Astankino'],
+    )
+    create_bus(
+        name='345',
+        type='BACKWARD',
+        stops=['Vazhino', 'Gamino', 'Lazino'],
+    )
+    create_bus(
+        name='462',
+        type='BACKWARD',
+        stops=['Vaznaya', 'Gamino2', 'Lazino2'],
+    )
+
+
+def create_bus(stops, name, type):
+    b = Bus.objects.create(
+        name=name,
+        velocity=40,
+        stop_count=4,
+        route_length=27600,
+        unique_stop_count=3,
+    )
+    for stop in stops:
+        o, _ = Stop.objects.get_or_create(name=stop, latitude=0, longitude=0)
+        BusStop.objects.get_or_create(stop=o, bus=b)
+
+    MapBus.objects.create(
+        name=name,
+        type=type,
+        stops=stops,
+    )
+
+@pytest.fixture
+def map_buses(load_json, response_buses):
+    buses = load_json('map_buses.json')
+
+    for bus in buses:
+        b = Bus.objects.get(name=bus['name'])
+        for stop in bus['stops']:
+            s = Stop.objects.get(name=stop)
+            BusStop.objects.get_or_create(stop=s, bus=b)
+
+        MapBus.objects.create(
+            name=bus['name'],
+            type='ROUND' if bus['is_roundtrip'] else 'BACKWARD',
+            stops=bus['stops'],
+        )
+
+
+@pytest.fixture
+def map_stops_with_coordeinates():
+    Stop.objects.create(name='start', longitude=0.0, latitude=0.0)
+    Stop.objects.create(name='inter1', longitude=53.34517, latitude=37.12098)
+    Stop.objects.create(name='inter2', longitude=4.6, latitude=4.2)
+    Stop.objects.create(name='inter3', longitude=29.38944, latitude=86.28910)
+    Stop.objects.create(name='finish', longitude=3.2, latitude=5.0)
+
+    MapBus.objects.create(
+        name='345',
+        type='BACKWARD',
+        stops=['start', 'inter1', 'inter2', 'inter3', 'finish'],
+    )
