@@ -1,7 +1,8 @@
 from typing import OrderedDict
+
 import pytest
 
-from map.gluing import gluing, interpolation, set_support_stops, set_neighboors
+from map.gluing import gluing, interpolation, set_neighboors, set_support_stops
 from map.models import MapStop
 from transport.models import Stop
 
@@ -60,6 +61,7 @@ class TestSupportStops:
             ],
         )
 
+
 class TestNeighboors:
 
     @pytest.mark.django_db(transaction=True)
@@ -77,14 +79,25 @@ class TestNeighboors:
         res = set_neighboors()
 
         assert res == {
-            'Biryulyovo Zapadnoye': set(['Apteka', 'Biryulyovo Tovarnaya', 'TETs 26']),
-            'Universam': set(['Pokrovskaya', 'Biryulyovo Tovarnaya', 'Biryusinka']),
+            'Biryulyovo Zapadnoye': set(
+                ['Apteka', 'Biryulyovo Tovarnaya', 'TETs 26'],
+            ),
+            'Universam': set(
+                ['Pokrovskaya', 'Biryulyovo Tovarnaya', 'Biryusinka'],
+            ),
             'Biryulyovo Tovarnaya': set(['Universam', 'Biryulyovo Zapadnoye']),
             'Biryusinka': set(['Universam', 'Apteka', 'TETs 26']),
             'Apteka': set(['Biryusinka', 'Biryulyovo Zapadnoye']),
-            'TETs 26': set(['Biryusinka', 'Biryulyovo Zapadnoye', 'Pokrovskaya']),
+            'TETs 26': set(
+                ['Biryusinka', 'Biryulyovo Zapadnoye', 'Pokrovskaya'],
+            ),
             'Pokrovskaya': set(
-                ['Rossoshanskaya ulitsa', 'Prazhskaya', 'Universam', 'TETs 26'],
+                [
+                    'Rossoshanskaya ulitsa',
+                    'Prazhskaya',
+                    'Universam',
+                    'TETs 26',
+                ],
             ),
             'Rossoshanskaya ulitsa': set(['Pokrovskaya']),
             'Prazhskaya': set(['Pokrovskaya']),
@@ -191,7 +204,10 @@ class TestGluing:
         gluing()
 
         assert MapStop.objects.count() == Stop.objects.count()
-        res = {stop.name: (stop.x_map_id, stop.y_map_id) for stop in  MapStop.objects.all()}
+        res = {
+            stop.name: (stop.x_map_id, stop.y_map_id)
+            for stop in MapStop.objects.all()
+        }
         expected = {
             'Biryulyovo Zapadnoye': (0, 6),
             'Apteka': (1, 5),

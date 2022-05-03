@@ -210,6 +210,7 @@ def create_bus(stops, name, type):
         stops=stops,
     )
 
+
 @pytest.fixture
 def map_buses(load_json, response_buses):
     buses = load_json('map_buses.json')

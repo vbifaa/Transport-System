@@ -1,7 +1,5 @@
-from collections import defaultdict, OrderedDict
-from pickle import STOP
-from re import X
 import typing
+from collections import OrderedDict, defaultdict
 
 from transport.models import Stop
 
@@ -39,7 +37,6 @@ def gluing():
         MapStop.objects.create(
             name=name, x_map_id=x_indx[name], y_map_id=y_indx[name],
         )
-
 
 
 def set_support_stops() -> typing.Set[str]:
@@ -108,8 +105,12 @@ def interpolation(support_stops: typing.Set[str]) -> typing.Tuple:
             if stops[id] in support_stops:
                 cur_stop = Stop.objects.get(name=stops[id])
 
-                x_step = (cur_stop.latitude - prev_stop.latitude) / (id - prev_id)
-                y_step = (cur_stop.longitude - prev_stop.longitude) / (id - prev_id)
+                x_step = (
+                    cur_stop.latitude - prev_stop.latitude
+                ) / (id - prev_id)
+                y_step = (
+                    cur_stop.longitude - prev_stop.longitude
+                ) / (id - prev_id)
 
                 for inter_id in range(prev_id + 1, id):
                     mul = inter_id - prev_id
@@ -121,7 +122,10 @@ def interpolation(support_stops: typing.Set[str]) -> typing.Tuple:
 
                 prev_stop = cur_stop
                 prev_id = id
-    return OrderedDict(sorted(res_x.items())), OrderedDict(sorted(res_y.items()))
+    return (
+        OrderedDict(sorted(res_x.items())),
+        OrderedDict(sorted(res_y.items())),
+    )
 
 
 def set_neighboors() -> typing.Dict[str, typing.Set[str]]:
