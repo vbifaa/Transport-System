@@ -110,7 +110,7 @@ class TestPostAPI:
 
     @mock_router
     @pytest.mark.parametrize(
-        'data',
+        'data, expceted_phrase',
         [
             pytest.param(
                 {
@@ -119,6 +119,7 @@ class TestPostAPI:
                     'stops': [],
                     'is_roundtrip': True,
                 },
+                'This field is required.',
                 id='zero',
             ),
             pytest.param(
@@ -128,6 +129,7 @@ class TestPostAPI:
                     'stops': ['Tolstopaltsevo'],
                     'is_roundtrip': False,
                 },
+                'Кол-во остановок должно быть более одной',
                 id='one',
             ),
             pytest.param(
@@ -137,17 +139,18 @@ class TestPostAPI:
                     'stops': ['Pokrovskaya', 'Pokrovskaya'],
                     'is_roundtrip': True,
                 },
+                'Кол-во остановок должно быть более одной',
                 id='two_but_round',
             ),
         ],
     )
     @pytest.mark.django_db(transaction=True)
-    def test_few_stops(self, client, stops, data):
+    def test_few_stops(self, client, stops, data, expceted_phrase):
         response = client.post('/api/buses/', data=data)
 
         assert response.status_code == 400
         assert response.json() == {
-            'stops': ['Кол-во остановок должно быть более одной'],
+            'stops': [expceted_phrase],
         }
         assert len(Bus.objects.all()) == 0
 

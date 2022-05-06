@@ -16,23 +16,23 @@ class StopViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         obj = super().create(request, *args, **kwargs)
-        rw.add_stop(request.POST['name'])
+        rw.add_stop(obj.data['name'])
         return obj
 
     @action(['post'], detail=False)
     def add_distance(self, request, *args, **kwargs):
         from_stop = get_object_or_404(
-            Stop, name=request.POST['from_stop'], msg='Cant find from_stop',
+            Stop, name=request.data['from_stop'], msg='Cant find from_stop',
         )
         to_stop = get_object_or_404(
-            Stop, name=request.POST['to_stop'], msg='Cant find to_stop',
+            Stop, name=request.data['to_stop'], msg='Cant find to_stop',
         )
 
         serializer = StopDistanceSerializer(
             data={
                 'from_stop': from_stop.pk,
                 'to_stop': to_stop.pk,
-                'distance': request.POST['distance'],
+                'distance': request.data['distance'],
             },
         )
         serializer.is_valid(raise_exception=True)
@@ -40,7 +40,7 @@ class StopViewSet(viewsets.ModelViewSet):
         StopDistance.objects.create(
             from_stop=from_stop,
             to_stop=to_stop,
-            distance=request.POST['distance'],
+            distance=request.data['distance'],
         )
         return Response(status=status.HTTP_201_CREATED)
 
@@ -64,14 +64,7 @@ class BusViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializer = BusCreateSerializer(
-            data={
-                'name': request.POST['name'],
-                'stops': request.POST.getlist('stops'),
-                'is_roundtrip': request.POST['is_roundtrip'],
-                'velocity': request.POST['velocity'],
-            },
-        )
+        serializer = BusCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self._create_bus(serializer.data)
         return Response(status=status.HTTP_201_CREATED)

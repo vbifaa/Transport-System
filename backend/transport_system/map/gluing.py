@@ -6,13 +6,9 @@ from transport.models import Stop
 from .models import MapBus, MapStop
 
 
-MAX_X_MAP_ID = 0
-MAX_Y_MAP_ID = 0
-
-
 def gluing():
-    MAX_X_MAP_ID = 0
-    MAX_Y_MAP_ID = 0
+    max_x_map_id = 0
+    max_y_map_id = 0
 
     support_stops = set_support_stops()
     x_coord, y_coord = interpolation(support_stops)
@@ -42,8 +38,9 @@ def gluing():
         ms = MapStop.objects.create(
             name=name, x_map_id=x_indx[name], y_map_id=y_indx[name],
         )
-        MAX_X_MAP_ID = max(MAX_X_MAP_ID, ms.x_map_id)
-        MAX_Y_MAP_ID = max(MAX_Y_MAP_ID, ms.y_map_id)
+        max_x_map_id = max(max_x_map_id, ms.x_map_id)
+        max_y_map_id = max(max_y_map_id, ms.y_map_id)
+    return max_x_map_id, max_y_map_id
 
 
 def set_support_stops() -> typing.Set[str]:
@@ -100,8 +97,8 @@ def interpolation(support_stops: typing.Set[str]) -> typing.Tuple:
 
     for stop_sup_name in support_stops:
         stop_sup = Stop.objects.get(name=stop_sup_name)
-        res_x[stop_sup.latitude] = stop_sup.name
-        res_y[stop_sup.longitude] = stop_sup.name
+        res_x[stop_sup.longitude] = stop_sup.name
+        res_y[stop_sup.latitude] = stop_sup.name
 
     for bus in buses:
         stops = bus.stops
@@ -113,19 +110,19 @@ def interpolation(support_stops: typing.Set[str]) -> typing.Tuple:
                 cur_stop = Stop.objects.get(name=stops[id])
 
                 x_step = (
-                    cur_stop.latitude - prev_stop.latitude
+                    cur_stop.longitude - prev_stop.longitude
                 ) / (id - prev_id)
                 y_step = (
-                    cur_stop.longitude - prev_stop.longitude
+                    cur_stop.latitude - prev_stop.latitude
                 ) / (id - prev_id)
 
                 for inter_id in range(prev_id + 1, id):
                     mul = inter_id - prev_id
-                    lat = round(prev_stop.latitude + mul*x_step, 6)
-                    lon = round(prev_stop.longitude + mul*y_step, 6)
+                    lon = round(prev_stop.longitude + mul*x_step, 6)
+                    lat = round(prev_stop.latitude + mul*y_step, 6)
 
-                    res_x[lat] = stops[inter_id]
-                    res_y[lon] = stops[inter_id]
+                    res_x[lon] = stops[inter_id]
+                    res_y[lat] = stops[inter_id]
 
                 prev_stop = cur_stop
                 prev_id = id

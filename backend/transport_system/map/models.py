@@ -1,11 +1,5 @@
-from django.core.validators import MaxValueValidator
+from colorfield.fields import ColorField
 from django.db import models
-
-
-class RGB(models.Field):
-    r = models.PositiveIntegerField(validators=[MaxValueValidator(255)])
-    g = models.PositiveIntegerField(validators=[MaxValueValidator(255)])
-    b = models.PositiveIntegerField(validators=[MaxValueValidator(255)])
 
 
 class MapStop(models.Model):
@@ -30,4 +24,4 @@ class MapBus(models.Model):
     name = models.CharField('Название', max_length=25, unique=True)
     stops = models.JSONField()
     type = models.CharField(choices=BusType.choices, max_length=200)
-    color = RGB()
+    color = ColorField(default='#FF0000')

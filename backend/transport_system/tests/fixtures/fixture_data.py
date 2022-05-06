@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from map.models import MapBus, RGB
+from map.models import MapBus
 from routing.models import Edge, Graph, RouterWrapper
 from transport.models import Bus, BusStop, Stop, StopDistance
 from transport_system.actions import get_object_or_404
@@ -13,9 +13,6 @@ from transport_system.actions import get_object_or_404
 def load_json():
     def run(json_path):
         script_dir = os.path.dirname(__file__)
-        if json_path == '1':
-            print(script_dir)
-            assert False
         file_path = os.path.join(script_dir, json_path)
         with open(file_path) as f:
             return json.load(f)
@@ -208,13 +205,16 @@ def create_bus(stops, name, type):
         name=name,
         type=type,
         stops=stops,
-        color=RGB(0, 0, 0),
     )
 
 
 @pytest.fixture
 def map_buses(load_json, response_buses):
     buses = load_json('map_buses.json')
+
+    colors = {
+        '297': '#FF0000', '828': '#03E8FC', '635': '#41FC03', '750': '#DF03FC',
+    }
 
     for bus in buses:
         b = Bus.objects.get(name=bus['name'])
@@ -226,7 +226,7 @@ def map_buses(load_json, response_buses):
             name=bus['name'],
             type='ROUND' if bus['is_roundtrip'] else 'BACKWARD',
             stops=bus['stops'],
-            color=RGB(0, 0, 0),
+            color=colors[b.name],
         )
 
 
@@ -242,5 +242,11 @@ def map_stops_with_coordeinates():
         name='345',
         type='BACKWARD',
         stops=['start', 'inter1', 'inter2', 'inter3', 'finish'],
-        color=RGB(0, 0, 0),
     )
+
+
+@pytest.fixture
+def map_gluing(load_json, map_buses):
+    from map.gluing import gluing
+
+    return gluing()

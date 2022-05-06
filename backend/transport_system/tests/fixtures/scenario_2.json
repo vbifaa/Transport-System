@@ -1,0 +1,381 @@
+[
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Улица Лизы Чайкиной",
+                "longitude": 43.590317,
+                "latitude": 39.746833
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Морской вокзал",
+                "longitude": 43.581969,
+                "latitude": 39.719848
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Электросети",
+                "longitude": 43.598701,
+                "latitude": 39.730623
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Ривьерский мост",
+                "longitude": 43.587795,
+                "latitude": 39.716901
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Гостиница Сочи",
+                "longitude": 43.578079,
+                "latitude": 39.728068
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Кубанская улица",
+                "longitude": 43.578509,
+                "latitude": 39.730959
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "По требованию",
+                "longitude": 43.579285,
+                "latitude": 39.733742
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Улица Докучаева",
+                "longitude": 43.585586,
+                "latitude": 39.733879
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Параллельная улица",
+                "longitude": 43.590041,
+                "latitude": 39.732886
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/",
+            "data": {
+                "name": "Санаторий Родина",
+                "longitude": 43.601202,
+                "latitude": 39.715498
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Морской вокзал",
+                "to_stop": "Ривьерский мост",
+                "distance": 850
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Улица Лизы Чайкиной",
+                "to_stop": "Электросети",
+                "distance": 4300
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Улица Лизы Чайкиной",
+                "to_stop": "Улица Докучаева",
+                "distance": 2000
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Электросети",
+                "to_stop": "Санаторий Родина",
+                "distance": 4500
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Электросети",
+                "to_stop": "Параллельная улица",
+                "distance": 1200
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Электросети",
+                "to_stop": "Ривьерский мост",
+                "distance": 1900
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Ривьерский мост",
+                "to_stop": "Морской вокзал",
+                "distance": 850
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Ривьерский мост",
+                "to_stop": "Гостиница Сочи",
+                "distance": 1740
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Гостиница Сочи",
+                "to_stop": "Кубанская улица",
+                "distance": 324
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Кубанская улица",
+                "to_stop": "По требованию",
+                "distance": 370
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "По требованию",
+                "to_stop": "Улица Докучаева",
+                "distance": 600
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/stops/add_distance/",
+            "data": {
+                "from_stop": "Улица Докучаева",
+                "to_stop": "Параллельная улица",
+                "distance": 1100
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/buses/",
+            "data": {
+                "name": "14",
+                "stops": [
+                    "Улица Лизы Чайкиной",
+                    "Электросети",
+                    "Ривьерский мост",
+                    "Гостиница Сочи",
+                    "Кубанская улица",
+                    "По требованию",
+                    "Улица Докучаева",
+                    "Улица Лизы Чайкиной"
+                ],
+                "velocity": 30,
+                "is_roundtrip": true
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/buses/",
+            "data": {
+                "name": "24",
+                "stops": [
+                    "Улица Докучаева",
+                    "Параллельная улица",
+                    "Электросети",
+                    "Санаторий Родина"
+                ],
+                "velocity": 30,
+                "is_roundtrip": false
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "POST",
+            "url": "/api/buses/",
+            "data": {
+                "name": "114",
+                "stops": [
+                    "Морской вокзал",
+                    "Ривьерский мост"
+                ],
+                "velocity": 30,
+                "is_roundtrip": false
+            }
+        },
+        "response": {"code": 201}
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/stops/",
+            "data": {"name": "Электросети"}
+        },
+        "response": {
+            "code": 200, "json": {"buses": ["14", "24"]}
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/stops/",
+            "data": {"name": "Ривьерский мост"}
+        },
+        "response": {
+            "code": 200, "json": {"buses": ["14", "114"]}
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/buses/",
+            "data": {"name": "14"}
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "unique_stop_count": 7,
+                "stop_count": 8,
+                "route_length": 11234
+            }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/route/",
+            "data": {
+                "from": "Морской вокзал",
+                "to": "Параллельная улица"
+            }
+        },
+        "response": {
+            "code": 200,
+            "json": {
+                "total_time": 24.968,
+                "items": [
+                    {"stop_name": "Морской вокзал", "time": 5.0, "type": "WAIT"},
+                    {"bus": "114", "span_count": 1, "time": 1.7, "type": "BUS"},
+                    {"stop_name": "Ривьерский мост", "time": 5.0, "type": "WAIT"},
+                    {"bus": "14", "span_count": 4, "time": 6.068, "type": "BUS"},
+                    {"stop_name": "Улица Докучаева", "time": 5.0, "type": "WAIT"},
+                    {"bus": "24", "span_count": 1, "time": 2.2, "type": "BUS"}
+                ]
+            }
+        }
+    }
+]

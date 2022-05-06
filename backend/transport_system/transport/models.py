@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Stop(models.Model):
-    name = models.CharField('Название', max_length=25, unique=True)
+    name = models.CharField('Название', max_length=50, unique=True)
     longitude = models.FloatField('Долгота')
     latitude = models.FloatField('Широта')
 

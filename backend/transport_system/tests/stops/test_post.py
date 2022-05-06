@@ -33,7 +33,7 @@ class TestPostAPI:
     @mock_router
     @pytest.mark.django_db(transaction=True)
     def test_post_stop_long_name(self, client):
-        name = '12345678901234567890123456'
+        name = '12345678901234567890123456' * 2
         data = {'name': name, 'longitude': 32.34698, 'latitude': 76.92813}
         response = client.post('/api/stops/', data=data)
 

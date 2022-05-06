@@ -1,23 +1,30 @@
-# class ApiRoute(APIView):
+import os
 
-#     def get(self, request):
-#         stop_from = get_object_or_404(
-#             Stop, name=request.GET['from'], msg='Cant find stop_from',
-#         )
-#         stop_to = get_object_or_404(
-#             Stop, name=request.GET['to'], msg='Cant find stop_to',
-#         )
-#         res = router_wrapper.build_path(
-#             vertex_from_id=stop_from.in_id, vertex_to_id=stop_to.in_id,
-#         )
-#         if res is None:
-#             return Response(
-#                 {'error_msg': 'Stops are not connected'},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-#         weight, route = res
-#         serializer = RoutePartSerializer(route, many=True)
-#         return Response(
-#             {'total_time': float(f'{weight:.6f}'), 'items': serializer.data},
-#             status=status.HTTP_200_OK,
-#         )
+import svgwrite
+from django.http import HttpResponse
+from rest_framework.views import APIView
+
+from map.drawing import draw_map
+from map.gluing import gluing
+
+MAP_BUILD = False
+FILE_PATH = 'map/db.svg'
+
+
+class ApiMap(APIView):
+
+    def get(self, request):
+        dwg = svgwrite.Drawing(FILE_PATH)
+        print(FILE_PATH)
+        global MAP_BUILD
+        if not MAP_BUILD:
+            try:  # if there are no db.svg it will throw exception
+                script_dir = os.path.dirname(__file__)
+                os.remove(os.path.join(script_dir, 'db.svg'))
+            except Exception:
+                pass
+
+            x_id, y_id = gluing()
+            draw_map(max_x_map_id=x_id, max_y_map_id=y_id, dwg=dwg)
+            # MAP_BUILED = True
+        return HttpResponse(dwg.tostring(), content_type='image/svg+xml')

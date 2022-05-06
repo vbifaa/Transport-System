@@ -116,19 +116,19 @@ class TestInterpolation:
         assert res_x == OrderedDict(
             {
                 0.0: 'start',
-                1.25: 'inter1',
-                2.5: 'inter2',
-                3.75: 'inter3',
-                5.0: 'finish',
+                0.8: 'inter1',
+                1.6: 'inter2',
+                2.4: 'inter3',
+                3.2: 'finish',
             }
         )
         assert res_y == OrderedDict(
             {
                 0.0: 'start',
-                0.8: 'inter1',
-                1.6: 'inter2',
-                2.4: 'inter3',
-                3.2: 'finish',
+                1.25: 'inter1',
+                2.5: 'inter2',
+                3.75: 'inter3',
+                5.0: 'finish',
             }
         )
 
@@ -140,19 +140,19 @@ class TestInterpolation:
         assert res_x == OrderedDict(
             {
                 0.0: 'start',
-                1.25: 'inter1',
-                2.5: 'inter2',
-                3.75: 'inter3',
-                5.0: 'finish',
+                0.8: 'inter1',
+                1.6: 'inter2',
+                2.4: 'inter3',
+                3.2: 'finish',
             }
         )
         assert res_y == OrderedDict(
             {
                 0.0: 'start',
-                0.8: 'inter1',
-                1.6: 'inter2',
-                2.4: 'inter3',
-                3.2: 'finish',
+                1.25: 'inter1',
+                2.5: 'inter2',
+                3.75: 'inter3',
+                5.0: 'finish',
             }
         )
 
@@ -164,19 +164,19 @@ class TestInterpolation:
         assert res_x == OrderedDict(
             {
                 0.0: 'start',
-                2.1: 'inter1',
-                4.2: 'inter2',
-                4.6: 'inter3',
-                5.0: 'finish',
+                2.3: 'inter1',
+                3.2: 'finish',
+                3.9: 'inter3',
+                4.6: 'inter2',
             }
         )
         assert res_y == OrderedDict(
             {
                 0.0: 'start',
-                2.3: 'inter1',
-                3.2: 'finish',
-                3.9: 'inter3',
-                4.6: 'inter2',
+                2.1: 'inter1',
+                4.2: 'inter2',
+                4.6: 'inter3',
+                5.0: 'finish',
             }
         )
 
@@ -185,12 +185,12 @@ class TestInterpolation:
         res_x, res_y = interpolation(support_stops=set_support_stops())
 
         stops = load_json('stops.json')
-        excepted_x = {55.577718: 'Apteka'}
-        excepted_y = {37.650045: 'Apteka'}
+        excepted_x = {37.650045: 'Apteka'}
+        excepted_y = {55.577718: 'Apteka'}
         for stop in stops:
             if stop['name'] != 'Apteka':
-                excepted_x[stop['latitude']] = stop['name']
-                excepted_y[stop['longitude']] = stop['name']
+                excepted_x[stop['longitude']] = stop['name']
+                excepted_y[stop['latitude']] = stop['name']
 
         assert res_x == OrderedDict(sorted(excepted_x.items()))
         assert res_y == OrderedDict(sorted(excepted_y.items()))
@@ -201,7 +201,8 @@ class TestGluing:
     @pytest.mark.django_db(transaction=True)
     def test_massive(self, map_buses):
         assert MapStop.objects.count() == 0
-        gluing()
+        res = gluing()
+        assert res == (6, 5)
 
         assert MapStop.objects.count() == Stop.objects.count()
         res = {
@@ -209,16 +210,16 @@ class TestGluing:
             for stop in MapStop.objects.all()
         }
         expected = {
-            'Biryulyovo Zapadnoye': (0, 6),
-            'Apteka': (1, 5),
-            'TETs 26': (1, 3),
-            'Biryusinka': (2, 4),
-            'Universam': (3, 3),
-            'Biryulyovo Tovarnaya': (4, 7),
-            'Rossoshanskaya ulitsa': (0, 1),
-            'Pokrovskaya': (4, 2),
-            'Tolstopaltsevo': (0, 0),
-            'Prazhskaya': (5, 0),
-            'Rasskazovka': (1, 1),
+            'Biryulyovo Zapadnoye': (5, 0),
+            'Apteka': (4, 1),
+            'TETs 26': (2, 1),
+            'Biryusinka': (3, 2),
+            'Universam': (2, 3),
+            'Biryulyovo Tovarnaya': (6, 4),
+            'Rossoshanskaya ulitsa': (0, 0),
+            'Pokrovskaya': (1, 4),
+            'Tolstopaltsevo': (0, 1),
+            'Prazhskaya': (0, 5),
+            'Rasskazovka': (1, 5),
         }
         assert res == expected
