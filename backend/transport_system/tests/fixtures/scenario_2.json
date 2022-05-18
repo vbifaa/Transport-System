@@ -4,7 +4,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Улица Лизы Чайкиной",
+                "name": "Ylitsa Liza Chaikinoi",
                 "longitude": 43.590317,
                 "latitude": 39.746833
             }
@@ -16,7 +16,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Морской вокзал",
+                "name": "Morskoi Vokzal",
                 "longitude": 43.581969,
                 "latitude": 39.719848
             }
@@ -28,7 +28,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Электросети",
+                "name": "Electroseti",
                 "longitude": 43.598701,
                 "latitude": 39.730623
             }
@@ -40,7 +40,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Ривьерский мост",
+                "name": "Rivierski most",
                 "longitude": 43.587795,
                 "latitude": 39.716901
             }
@@ -52,7 +52,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Гостиница Сочи",
+                "name": "Gostinitsa Sochi",
                 "longitude": 43.578079,
                 "latitude": 39.728068
             }
@@ -64,7 +64,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Кубанская улица",
+                "name": "Kubanskaya ylitsa",
                 "longitude": 43.578509,
                 "latitude": 39.730959
             }
@@ -76,7 +76,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "По требованию",
+                "name": "Po trebovaniu",
                 "longitude": 43.579285,
                 "latitude": 39.733742
             }
@@ -88,7 +88,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Улица Докучаева",
+                "name": "Ylitsa Dokuchaeva",
                 "longitude": 43.585586,
                 "latitude": 39.733879
             }
@@ -100,7 +100,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Параллельная улица",
+                "name": "Parallelnaya ylitsa",
                 "longitude": 43.590041,
                 "latitude": 39.732886
             }
@@ -112,7 +112,7 @@
             "type": "POST",
             "url": "/api/stops/",
             "data": {
-                "name": "Санаторий Родина",
+                "name": "Sanatoryi Rodina",
                 "longitude": 43.601202,
                 "latitude": 39.715498
             }
@@ -124,8 +124,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Морской вокзал",
-                "to_stop": "Ривьерский мост",
+                "from_stop": "Morskoi Vokzal",
+                "to_stop": "Rivierski most",
                 "distance": 850
             }
         },
@@ -136,8 +136,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Улица Лизы Чайкиной",
-                "to_stop": "Электросети",
+                "from_stop": "Ylitsa Liza Chaikinoi",
+                "to_stop": "Electroseti",
                 "distance": 4300
             }
         },
@@ -148,8 +148,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Улица Лизы Чайкиной",
-                "to_stop": "Улица Докучаева",
+                "from_stop": "Ylitsa Liza Chaikinoi",
+                "to_stop": "Ylitsa Dokuchaeva",
                 "distance": 2000
             }
         },
@@ -160,8 +160,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Электросети",
-                "to_stop": "Санаторий Родина",
+                "from_stop": "Electroseti",
+                "to_stop": "Sanatoryi Rodina",
                 "distance": 4500
             }
         },
@@ -172,8 +172,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Электросети",
-                "to_stop": "Параллельная улица",
+                "from_stop": "Electroseti",
+                "to_stop": "Parallelnaya ylitsa",
                 "distance": 1200
             }
         },
@@ -184,8 +184,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Электросети",
-                "to_stop": "Ривьерский мост",
+                "from_stop": "Electroseti",
+                "to_stop": "Rivierski most",
                 "distance": 1900
             }
         },
@@ -196,8 +196,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Ривьерский мост",
-                "to_stop": "Морской вокзал",
+                "from_stop": "Rivierski most",
+                "to_stop": "Morskoi Vokzal",
                 "distance": 850
             }
         },
@@ -208,8 +208,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Ривьерский мост",
-                "to_stop": "Гостиница Сочи",
+                "from_stop": "Rivierski most",
+                "to_stop": "Gostinitsa Sochi",
                 "distance": 1740
             }
         },
@@ -220,8 +220,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Гостиница Сочи",
-                "to_stop": "Кубанская улица",
+                "from_stop": "Gostinitsa Sochi",
+                "to_stop": "Kubanskaya ylitsa",
                 "distance": 324
             }
         },
@@ -232,8 +232,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Кубанская улица",
-                "to_stop": "По требованию",
+                "from_stop": "Kubanskaya ylitsa",
+                "to_stop": "Po trebovaniu",
                 "distance": 370
             }
         },
@@ -244,8 +244,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "По требованию",
-                "to_stop": "Улица Докучаева",
+                "from_stop": "Po trebovaniu",
+                "to_stop": "Ylitsa Dokuchaeva",
                 "distance": 600
             }
         },
@@ -256,8 +256,8 @@
             "type": "POST",
             "url": "/api/stops/add_distance/",
             "data": {
-                "from_stop": "Улица Докучаева",
-                "to_stop": "Параллельная улица",
+                "from_stop": "Ylitsa Dokuchaeva",
+                "to_stop": "Parallelnaya ylitsa",
                 "distance": 1100
             }
         },
@@ -270,17 +270,18 @@
             "data": {
                 "name": "14",
                 "stops": [
-                    "Улица Лизы Чайкиной",
-                    "Электросети",
-                    "Ривьерский мост",
-                    "Гостиница Сочи",
-                    "Кубанская улица",
-                    "По требованию",
-                    "Улица Докучаева",
-                    "Улица Лизы Чайкиной"
+                    "Ylitsa Liza Chaikinoi",
+                    "Electroseti",
+                    "Rivierski most",
+                    "Gostinitsa Sochi",
+                    "Kubanskaya ylitsa",
+                    "Po trebovaniu",
+                    "Ylitsa Dokuchaeva",
+                    "Ylitsa Liza Chaikinoi"
                 ],
                 "velocity": 30,
-                "is_roundtrip": true
+                "is_roundtrip": true,
+                "color": "#41FC03"
             }
         },
         "response": {"code": 201}
@@ -292,13 +293,14 @@
             "data": {
                 "name": "24",
                 "stops": [
-                    "Улица Докучаева",
-                    "Параллельная улица",
-                    "Электросети",
-                    "Санаторий Родина"
+                    "Ylitsa Dokuchaeva",
+                    "Parallelnaya ylitsa",
+                    "Electroseti",
+                    "Sanatoryi Rodina"
                 ],
                 "velocity": 30,
-                "is_roundtrip": false
+                "is_roundtrip": false,
+                "color": "#4281f5"
             }
         },
         "response": {"code": 201}
@@ -310,11 +312,12 @@
             "data": {
                 "name": "114",
                 "stops": [
-                    "Морской вокзал",
-                    "Ривьерский мост"
+                    "Morskoi Vokzal",
+                    "Rivierski most"
                 ],
                 "velocity": 30,
-                "is_roundtrip": false
+                "is_roundtrip": false,
+                "color": "#f26b30"
             }
         },
         "response": {"code": 201}
@@ -323,7 +326,7 @@
         "request": {
             "type": "GET",
             "url": "/api/stops/",
-            "data": {"name": "Электросети"}
+            "data": {"name": "Electroseti"}
         },
         "response": {
             "code": 200, "json": {"buses": ["14", "24"]}
@@ -333,7 +336,7 @@
         "request": {
             "type": "GET",
             "url": "/api/stops/",
-            "data": {"name": "Ривьерский мост"}
+            "data": {"name": "Rivierski most"}
         },
         "response": {
             "code": 200, "json": {"buses": ["14", "114"]}
@@ -359,8 +362,8 @@
             "type": "GET",
             "url": "/api/route/",
             "data": {
-                "from": "Морской вокзал",
-                "to": "Параллельная улица"
+                "from": "Morskoi Vokzal",
+                "to": "Parallelnaya ylitsa"
             }
         },
         "response": {
@@ -368,14 +371,24 @@
             "json": {
                 "total_time": 24.968,
                 "items": [
-                    {"stop_name": "Морской вокзал", "time": 5.0, "type": "WAIT"},
+                    {"stop_name": "Morskoi Vokzal", "time": 5.0, "type": "WAIT"},
                     {"bus": "114", "span_count": 1, "time": 1.7, "type": "BUS"},
-                    {"stop_name": "Ривьерский мост", "time": 5.0, "type": "WAIT"},
+                    {"stop_name": "Rivierski most", "time": 5.0, "type": "WAIT"},
                     {"bus": "14", "span_count": 4, "time": 6.068, "type": "BUS"},
-                    {"stop_name": "Улица Докучаева", "time": 5.0, "type": "WAIT"},
+                    {"stop_name": "Ylitsa Dokuchaeva", "time": 5.0, "type": "WAIT"},
                     {"bus": "24", "span_count": 1, "time": 2.2, "type": "BUS"}
                 ]
             }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/map/"
+        },
+        "response": {
+            "code": 200,
+            "content": "<svg baseProfile=\"full\" height=\"100%\" version=\"1.1\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs /><polyline fill=\"none\" points=\"233.333,50.0 966.667,383.333 783.333,450.0 600.0,383.333 416.667,316.667 233.333,250.0 50.0,116.667 233.333,50.0\" stroke=\"rgb(65,252,3)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><polyline fill=\"none\" points=\"50.0,116.667 233.333,183.333 966.667,383.333 1150.0,450.0\" stroke=\"rgb(66,129,245)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><polyline fill=\"none\" points=\"50.0,383.333 783.333,450.0\" stroke=\"rgb(242,107,48)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><circle cx=\"233.333\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"50.0\" cy=\"383.333\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"966.667\" cy=\"383.333\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"783.333\" cy=\"450.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"600.0\" cy=\"383.333\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"416.667\" cy=\"316.667\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"233.333\" cy=\"250.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"50.0\" cy=\"116.667\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"233.333\" cy=\"183.333\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"1150.0\" cy=\"450.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"233.333\" y=\"50.0\">Ylitsa Liza Chaikinoi</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"233.333\" y=\"50.0\">Ylitsa Liza Chaikinoi</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"383.333\">Morskoi Vokzal</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"50.0\" y=\"383.333\">Morskoi Vokzal</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"966.667\" y=\"383.333\">Electroseti</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"966.667\" y=\"383.333\">Electroseti</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">Rivierski most</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"783.333\" y=\"450.0\">Rivierski most</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"600.0\" y=\"383.333\">Gostinitsa Sochi</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"600.0\" y=\"383.333\">Gostinitsa Sochi</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"416.667\" y=\"316.667\">Kubanskaya ylitsa</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"416.667\" y=\"316.667\">Kubanskaya ylitsa</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"233.333\" y=\"250.0\">Po trebovaniu</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"233.333\" y=\"250.0\">Po trebovaniu</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"116.667\">Ylitsa Dokuchaeva</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"50.0\" y=\"116.667\">Ylitsa Dokuchaeva</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"233.333\" y=\"183.333\">Parallelnaya ylitsa</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"233.333\" y=\"183.333\">Parallelnaya ylitsa</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"450.0\">Sanatoryi Rodina</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"1150.0\" y=\"450.0\">Sanatoryi Rodina</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"233.333\" y=\"50.0\">14</text><text dx=\"7\" dy=\"15\" fill=\"rgb(65,252,3)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"233.333\" y=\"50.0\">14</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"116.667\">24</text><text dx=\"7\" dy=\"15\" fill=\"rgb(66,129,245)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"50.0\" y=\"116.667\">24</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"450.0\">24</text><text dx=\"7\" dy=\"15\" fill=\"rgb(66,129,245)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"1150.0\" y=\"450.0\">24</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"383.333\">114</text><text dx=\"7\" dy=\"15\" fill=\"rgb(242,107,48)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"50.0\" y=\"383.333\">114</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">114</text><text dx=\"7\" dy=\"15\" fill=\"rgb(242,107,48)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"783.333\" y=\"450.0\">114</text></svg>"
         }
     }
 ]

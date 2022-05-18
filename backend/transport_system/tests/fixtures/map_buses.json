@@ -9,7 +9,8 @@
             "Apteka",
             "Biryulyovo Zapadnoye"
         ],
-        "is_roundtrip": true
+        "is_roundtrip": true,
+        "color": "#FF0000"
     },
     {
         "name": "635",
@@ -21,7 +22,8 @@
             "Pokrovskaya",
             "Prazhskaya"
         ],
-        "is_roundtrip": false
+        "is_roundtrip": false,
+        "color": "#41FC03"
     },
     {
         "name": "828",
@@ -33,7 +35,8 @@
             "Pokrovskaya",
             "Rossoshanskaya ulitsa"
         ],
-        "is_roundtrip": false
+        "is_roundtrip": false,
+        "color": "#03E8FC"
     },
     {
         "name": "750",
@@ -41,6 +44,7 @@
             "Tolstopaltsevo",
             "Rasskazovka"
         ],
-        "is_roundtrip": false
+        "is_roundtrip": false,
+        "color": "#DF03FC"
     }
 ]

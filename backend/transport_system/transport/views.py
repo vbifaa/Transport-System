@@ -1,7 +1,11 @@
+from copy import deepcopy
+
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from map.models import MapBus
+from map.views import settings as draw_settings
 from routing.models import router_wrapper as rw
 from transport_system.actions import get_object_or_404
 
@@ -66,7 +70,8 @@ class BusViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = BusCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self._create_bus(serializer.data)
+        self._create_bus(deepcopy(serializer.data))
+        self._create_map_bus(deepcopy(serializer.data))
         return Response(status=status.HTTP_201_CREATED)
 
     def _create_bus(self, data):
@@ -103,6 +108,12 @@ class BusViewSet(viewsets.ModelViewSet):
         bus.save()
 
         rw.add_bus(bus_name=data['name'], stops=stops, one_direction=is_round)
+
+    def _create_map_bus(self, data):
+        draw_settings.map_build = False
+        data.pop('velocity')
+        data['type'] = 'ROUND' if data.pop('is_roundtrip') else 'BACKWARD'
+        MapBus.objects.create(**data)
 
     def _compute_distance(self, stops, is_round):
         route_length = 0

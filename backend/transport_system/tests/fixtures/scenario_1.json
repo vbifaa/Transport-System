@@ -120,7 +120,8 @@
                     "Biryulyovo Zapadnoye"
                 ],
                 "velocity": 40,
-                "is_roundtrip": true
+                "is_roundtrip": true,
+                "color": "#FF0000"
             }
         },
         "response": {"code": 201}
@@ -137,7 +138,8 @@
                     "Prazhskaya"
                 ],
                 "velocity": 40,
-                "is_roundtrip": false
+                "is_roundtrip": false,
+                "color": "#41FC03"
             }
         },
         "response": {"code": 201}
@@ -249,6 +251,30 @@
                     }
                 ]
             }
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/map/"
+        },
+        "response": {
+            "code": 200,
+            "content": "<svg baseProfile=\"full\" height=\"100%\" version=\"1.1\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs /><polyline fill=\"none\" points=\"783.333,450.0 1150.0,50.0 416.667,250.0 783.333,450.0\" stroke=\"rgb(255,0,0)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><polyline fill=\"none\" points=\"1150.0,50.0 416.667,250.0 50.0,50.0\" stroke=\"rgb(65,252,3)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><circle cx=\"783.333\" cy=\"450.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"1150.0\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"416.667\" cy=\"250.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"50.0\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"416.667\" y=\"250.0\">Universam</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"416.667\" y=\"250.0\">Universam</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"50.0\">Prazhskaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"50.0\" y=\"50.0\">Prazhskaya</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">297</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,0,0)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"783.333\" y=\"450.0\">297</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(65,252,3)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"1150.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(65,252,3)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"50.0\" y=\"50.0\">635</text></svg>"
+        }
+    },
+    {
+        "request": {
+            "type": "GET",
+            "url": "/api/map/route/",
+            "data": {
+                "from": "Biryulyovo Zapadnoye",
+                "to": "Universam"
+            }
+        },
+        "response": {
+            "code": 200,
+            "content": "<svg baseProfile=\"full\" height=\"100%\" version=\"1.1\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><defs /><polyline fill=\"none\" points=\"783.333,450.0 1150.0,50.0 416.667,250.0 783.333,450.0\" stroke=\"rgb(255,0,0)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><polyline fill=\"none\" points=\"1150.0,50.0 416.667,250.0 50.0,50.0\" stroke=\"rgb(65,252,3)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><circle cx=\"783.333\" cy=\"450.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"1150.0\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"416.667\" cy=\"250.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><circle cx=\"50.0\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"416.667\" y=\"250.0\">Universam</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"416.667\" y=\"250.0\">Universam</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"50.0\">Prazhskaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"50.0\" y=\"50.0\">Prazhskaya</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">297</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,0,0)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"783.333\" y=\"450.0\">297</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(65,252,3)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"1150.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"50.0\" y=\"50.0\">635</text><text dx=\"7\" dy=\"15\" fill=\"rgb(65,252,3)\" font-family=\"Verdana\" font-size=\"20\" font-weight=\"bold\" x=\"50.0\" y=\"50.0\">635</text><rect fill=\"rgb(255,255,255)\" fill-opacity=\"0.85\" height=\"800\" width=\"1500\" x=\"-150\" y=\"-150\" /><polyline fill=\"none\" points=\"783.333,450.0 1150.0,50.0 416.667,250.0\" stroke=\"rgb(255,0,0)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"14\" /><circle cx=\"783.333\" cy=\"450.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"783.333\" y=\"450.0\">Biryulyovo Zapadnoye</text><circle cx=\"1150.0\" cy=\"50.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"1150.0\" y=\"50.0\">Biryulyovo Tovarnaya</text><circle cx=\"416.667\" cy=\"250.0\" fill=\"rgb(255,255,255)\" r=\"5\" /><text dx=\"7\" dy=\"-3\" fill=\"rgb(255,255,255)\" font-family=\"Verdana\" font-size=\"18\" stroke=\"rgb(255,255,255)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" x=\"416.667\" y=\"250.0\">Universam</text><text dx=\"7\" dy=\"-3\" fill=\"rgb(0,0,0)\" font-family=\"Verdana\" font-size=\"18\" x=\"416.667\" y=\"250.0\">Universam</text></svg>"
         }
     }
 ]

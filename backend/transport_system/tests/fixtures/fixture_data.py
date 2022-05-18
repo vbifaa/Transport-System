@@ -20,6 +20,16 @@ def load_json():
 
 
 @pytest.fixture
+def load_file():
+    def run(file_path):
+        script_dir = os.path.dirname(__file__)
+        file_path = os.path.join(script_dir, file_path)
+        with open(file_path) as f:
+            return f.read()
+    return run
+
+
+@pytest.fixture
 def stops(load_json):
     json_stops = load_json('stops.json')
 
@@ -212,10 +222,6 @@ def create_bus(stops, name, type):
 def map_buses(load_json, response_buses):
     buses = load_json('map_buses.json')
 
-    colors = {
-        '297': '#FF0000', '828': '#03E8FC', '635': '#41FC03', '750': '#DF03FC',
-    }
-
     for bus in buses:
         b = Bus.objects.get(name=bus['name'])
         for stop in bus['stops']:
@@ -226,7 +232,7 @@ def map_buses(load_json, response_buses):
             name=bus['name'],
             type='ROUND' if bus['is_roundtrip'] else 'BACKWARD',
             stops=bus['stops'],
-            color=colors[b.name],
+            color=bus['color'],
         )
 
 

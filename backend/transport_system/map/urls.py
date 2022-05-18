@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import ApiMap
+from .views import map, map_route
 
 urlpatterns = [
-    path('map/', ApiMap.as_view())
+    path('map/', map, name='map'),
+    path('map/route/', map_route, name='map_route')
 ]

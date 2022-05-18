@@ -1,5 +1,6 @@
 import pytest
 
+from map.models import MapBus
 from routing.models import RoutePart
 from transport.models import Bus, BusStop
 
@@ -25,6 +26,7 @@ class TestPostAPI:
                     ],
                     'velocity': 50,
                     'is_roundtrip': True,
+                    'color': '#FF0000',
                 },
                 {
                     'name': '297',
@@ -43,6 +45,7 @@ class TestPostAPI:
                     ],
                     'velocity': 40,
                     'is_roundtrip': False,
+                    'color': '#DF03FC',
                 },
                 {
                     'name': '750',
@@ -66,6 +69,7 @@ class TestPostAPI:
                     ],
                     'velocity': 35,
                     'is_roundtrip': False,
+                    'color': '#41FC03',
                 },
                 {
                     'name': '635',
@@ -82,12 +86,12 @@ class TestPostAPI:
     def test_correct_post(
         self, client, router_wrapper_with_stops_only, data, expected_bus,
     ):
-        assert len(RoutePart.objects.all()) == 11
+        assert RoutePart.objects.count() == 11
 
         response = client.post('/api/buses/', data=data)
 
         assert response.status_code == 201
-        assert len(Bus.objects.all()) == 1
+        assert Bus.objects.count() == 1
 
         bus = Bus.objects.all()[0]
         assert bus.name == expected_bus['name']
@@ -102,11 +106,17 @@ class TestPostAPI:
             ).exists()
 
         st_n = len(data['stops'])
-        print(st_n)
         expected_rp_count = (st_n * (st_n - 1)) // 2
         if not data['is_roundtrip']:
             expected_rp_count *= 2
-        assert len(RoutePart.objects.all()) == expected_rp_count + 11
+        assert RoutePart.objects.count() == expected_rp_count + 11
+
+        assert MapBus.objects.count() == 1
+        map_bus = MapBus.objects.all()[0]
+        assert map_bus.name == data['name']
+        assert map_bus.stops == data['stops']
+        assert map_bus.type == 'ROUND' if data['is_roundtrip'] else 'BACKWARD'
+        assert map_bus.color == data['color']
 
     @mock_router
     @pytest.mark.parametrize(
@@ -118,6 +128,7 @@ class TestPostAPI:
                     'velocity': 20,
                     'stops': [],
                     'is_roundtrip': True,
+                    'color': '#FF0000',
                 },
                 'This field is required.',
                 id='zero',
@@ -128,6 +139,7 @@ class TestPostAPI:
                     'velocity': 20,
                     'stops': ['Tolstopaltsevo'],
                     'is_roundtrip': False,
+                    'color': '#FF0000',
                 },
                 'Кол-во остановок должно быть более одной',
                 id='one',
@@ -138,6 +150,7 @@ class TestPostAPI:
                     'velocity': 22,
                     'stops': ['Pokrovskaya', 'Pokrovskaya'],
                     'is_roundtrip': True,
+                    'color': '#FF0000',
                 },
                 'Кол-во остановок должно быть более одной',
                 id='two_but_round',
@@ -167,6 +180,7 @@ class TestPostAPI:
             ],
             'velocity': 24,
             'is_roundtrip': True,
+            'color': '#FF0000',
         }
         response = client.post('/api/buses/', data=data)
 
@@ -187,6 +201,7 @@ class TestPostAPI:
             'velocity': 46,
             'stops': ['Biryulyovo Tovarnaya', 'Universam'],
             'is_roundtrip': False,
+            'color': '#FF0000',
         }
         response = client.post('/api/buses/', data=data)
 

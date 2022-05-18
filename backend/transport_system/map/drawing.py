@@ -36,7 +36,11 @@ def draw_map(max_x_map_id: int, max_y_map_id: int, dwg: svgwrite.Drawing):
         )
 
     for bus in buses:
-        draw_way(dwg=dwg, stops_coord=stops_coord, bus=bus)
+        draw_way(
+            dwg=dwg,
+            coords=[stops_coord[stop_name] for stop_name in bus.stops],
+            color=bus.color,
+        )
 
     for _, coord in stops_coord.items():
         draw_station_circle(dwg=dwg, coord=coord)
@@ -47,7 +51,45 @@ def draw_map(max_x_map_id: int, max_y_map_id: int, dwg: svgwrite.Drawing):
     for bus in buses:
         draw_bus_title(dwg=dwg, stops_coord=stops_coord, bus=bus)
 
-    dwg.save()
+
+def draw_route(
+    route: list,
+    max_x_map_id: int,
+    max_y_map_id: int,
+    dwg: svgwrite.Drawing,
+):
+    out_marg = MAP_SETTINGS['outer_margin']
+    rect = svgwrite.shapes.Rect(
+        insert=(-out_marg, -out_marg),
+        size=(
+            MAP_SETTINGS['width'] + 2 * out_marg,
+            MAP_SETTINGS['height'] + 2 * out_marg,
+        ),
+        fill=svgwrite.rgb(*MAP_SETTINGS['underlayer_color'], 'RGB'),
+        fill_opacity=0.85,
+    )
+    dwg.add(rect)
+    for route_part in route:
+        stops_coord = []
+        for stop_name in route_part['stops']:
+            stop_obj = MapStop.objects.get(name=stop_name)
+            stops_coord.append(
+                get_coord_from_id(
+                    x_id=stop_obj.x_map_id,
+                    y_id=stop_obj.y_map_id,
+                    max_x_map_id=max_x_map_id,
+                    max_y_map_id=max_y_map_id,
+                ),
+            )
+        draw_way(dwg=dwg, coords=stops_coord, color=route_part['color'])
+
+        for i in range(len(stops_coord)):
+            draw_station_circle(dwg=dwg, coord=stops_coord[i])
+            draw_station_title(
+                dwg=dwg,
+                stop_name=route_part['stops'][i],
+                coord=stops_coord[i],
+            )
 
 
 def get_coord_from_id(
@@ -70,11 +112,10 @@ def get_coord_from_id(
     return round(x, 3), round(y, 3)
 
 
-def draw_way(dwg: svgwrite.Drawing, stops_coord: dict, bus):
-    line = [stops_coord[stop_name] for stop_name in bus.stops]
+def draw_way(dwg: svgwrite.Drawing, coords: dict, color):
     polyline = svgwrite.shapes.Polyline(
-        points=line,
-        stroke=svgwrite.rgb(*ImageColor.getcolor(bus.color, 'RGB'), 'RGB'),
+        points=coords,
+        stroke=svgwrite.rgb(*ImageColor.getcolor(color, 'RGB'), 'RGB'),
         stroke_width=MAP_SETTINGS['line_width'],
         stroke_linecap='round',
         stroke_linejoin='round',
@@ -84,7 +125,6 @@ def draw_way(dwg: svgwrite.Drawing, stops_coord: dict, bus):
 
 
 def draw_bus_title(dwg: svgwrite.Drawing, stops_coord: dict, bus):
-    print(bus.name)
     bus_stops_coord = [stops_coord[bus.stops[0]]]
     if bus.type == 'BACKWARD':
         bus_stops_coord.append(stops_coord[bus.stops[-1]])

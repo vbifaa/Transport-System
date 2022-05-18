@@ -1,10 +1,11 @@
 import pytest
 
-from .mocks import mock_router
+from .mocks import mock_dwg, mock_router
 
 
 class TestAllAPI:
 
+    @mock_dwg
     @mock_router
     @pytest.mark.parametrize(
         'file_path',
@@ -19,13 +20,18 @@ class TestAllAPI:
 
         for block in scenario:
             request = block['request']
+            url = request['url']
             if request['type'] == 'POST':
-                response = client.post(request['url'], data=request['data'])
+                response = client.post(url, data=request.get('data'))
             else:
-                response = client.get(request['url'], data=request['data'])
+                response = client.get(url, data=request.get('data'))
             expected_response = block['response']
-            assert expected_response['code'] == response.status_code, (
-                f'{request}\n{response.json()}'
-            )
-            if expected_response.get('json'):
+
+            assert expected_response['code'] == response.status_code
+
+            if 'json' in expected_response:
                 assert expected_response['json'] == response.json()
+            if 'content' in expected_response:
+                assert expected_response[
+                    'content'
+                ] == response.content.decode('utf-8'), url

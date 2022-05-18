@@ -1,3 +1,5 @@
+import re
+
 import haversine as hs
 from rest_framework import serializers
 
@@ -47,10 +49,11 @@ class BusGetSerializer(serializers.ModelSerializer):
 class BusCreateSerializer(serializers.ModelSerializer):
     stops = serializers.ListField(child=serializers.CharField())
     is_roundtrip = serializers.BooleanField()
+    color = serializers.CharField()
 
     class Meta:
         model = Bus
-        fields = ('name', 'is_roundtrip', 'stops', 'velocity')
+        fields = ('name', 'is_roundtrip', 'stops', 'velocity', 'color')
 
     def validate(self, attrs):
         value = super().validate(attrs)
@@ -72,4 +75,7 @@ class BusCreateSerializer(serializers.ModelSerializer):
                     )
                 }
             )
+
+        if not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', value['color']):
+            raise serializers.ValidationError({'color': 'Must be HEX'})
         return value

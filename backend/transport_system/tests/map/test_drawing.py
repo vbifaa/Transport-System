@@ -1,5 +1,3 @@
-import os
-
 import pytest
 import svgwrite
 
@@ -31,10 +29,6 @@ class TestDraw:
 
     @pytest.mark.django_db(transaction=True)
     def test_draw_map(self, map_gluing):
-        path = 'tests/map/tmp.svg'
-        dwg = svgwrite.Drawing(path)
+        dwg = svgwrite.Drawing()
         x_id, y_id = map_gluing
         draw_map(max_x_map_id=x_id, max_y_map_id=y_id, dwg=dwg)
-
-        script_dir = os.path.dirname(__file__)
-        os.remove(os.path.join(script_dir, 'tmp.svg'))
