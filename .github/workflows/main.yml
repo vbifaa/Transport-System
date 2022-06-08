@@ -23,9 +23,11 @@ jobs:
         pip install -r backend/transport_system/requirements.txt 
     - name: Test with flake8 and pytest tests
       run: |
+        # переход в папку с Django проектом
+        cd backend/
         # запуск проверки проекта по flake8
         python -m flake8
-        перейти в папку, содержащую папку tests - <корневая_папка>/backend/transport_system/tests
-        cd backend/transport_system/
+        # перход в папку, содержащую папку tests - banckend/transport_system/tests/
+        cd transport_system/
         # запустить написанные разработчиком тесты
         pytest
