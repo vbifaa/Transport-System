@@ -28,7 +28,7 @@ def draw_map(max_x_map_id: int, max_y_map_id: int, dwg: svgwrite.Drawing):
 
     stops_coord = {}
     for stop in stops:
-        stops_coord[stop.name]= get_coord_from_id(
+        stops_coord[stop.name] = get_coord_from_id(
             x_id=stop.x_map_id,
             y_id=stop.y_map_id,
             max_x_map_id=max_x_map_id,
