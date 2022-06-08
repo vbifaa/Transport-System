@@ -214,7 +214,7 @@ class RouterWrapper:
         stop_count = len(stops)
         for i in range(stop_count - 1):
             dist = compute_distance(
-                from_stop_name=stops[i], to_stop_name=stops[i+1],
+                from_stop_name=stops[i], to_stop_name=stops[i + 1],
             )
             dist = dist * 0.06 / bus_velocity
             distances.append(distances[-1] + dist)

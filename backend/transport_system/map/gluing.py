@@ -118,8 +118,8 @@ def interpolation(support_stops: typing.Set[str]) -> typing.Tuple:
 
                 for inter_id in range(prev_id + 1, id):
                     mul = inter_id - prev_id
-                    lon = round(prev_stop.longitude + mul*x_step, 6)
-                    lat = round(prev_stop.latitude + mul*y_step, 6)
+                    lon = round(prev_stop.longitude + mul * x_step, 6)
+                    lat = round(prev_stop.latitude + mul * y_step, 6)
 
                     res_x[lon] = stops[inter_id]
                     res_y[lat] = stops[inter_id]

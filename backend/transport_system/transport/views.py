@@ -83,7 +83,7 @@ class BusViewSet(viewsets.ModelViewSet):
         )
         stop_count = len(stops)
         if not is_round:
-            stop_count = 2*stop_count - 1
+            stop_count = 2 * stop_count - 1
 
         bus = Bus.objects.create(
             name=data['name'],
@@ -121,10 +121,10 @@ class BusViewSet(viewsets.ModelViewSet):
             if i == 0:
                 continue
             route_length += compute_distance(
-                from_stop_name=stops[i-1], to_stop_name=stops[i],
+                from_stop_name=stops[i - 1], to_stop_name=stops[i],
             )
             if not is_round:
                 route_length += compute_distance(
-                    from_stop_name=stops[i], to_stop_name=stops[i-1],
+                    from_stop_name=stops[i], to_stop_name=stops[i - 1],
                 )
         return route_length
