@@ -65,6 +65,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }} # Если ваш ssh-ключ защищён фразой-паролем
         script: |
+          # переход в папку docker-compose
+          cd ~/Transport-System/infra/
           # остановка и удаление контейнеров с образами
           sudo docker-compose stop 
           sudo docker container prune -f
