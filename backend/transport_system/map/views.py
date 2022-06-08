@@ -64,15 +64,16 @@ def map_route(request):
 
 def convert_to_map_route(route: list, to_st: str) -> list:
     assert len(route) % 2 == 0
+    print(route)
 
     res = []
     for id in range(len(route) // 2):
-        from_st_name = route[id]['stop_name']
+        from_st_name = route[2*id]['stop_name']
         to_st_name = (
-            route[id + 2]['stop_name']
-            if id + 2 < len(route) else to_st
+            route[2*id + 2]['stop_name']
+            if 2*id + 2 < len(route) else to_st
         )
-        bus_name = route[id + 1]['bus']
+        bus_name = route[2*id + 1]['bus']
 
         bus = MapBus.objects.get(name=bus_name)
 
@@ -84,8 +85,8 @@ def convert_to_map_route(route: list, to_st: str) -> list:
             step = -1
 
         map_stops = []
-        for id in range(start_st_id, end_st_id + step, step):
-            map_stops.append(bus.stops[id])
+        for st_id in range(start_st_id, end_st_id + step, step):
+            map_stops.append(bus.stops[st_id])
 
         res.append({'color': bus.color, 'stops': map_stops})
     return res

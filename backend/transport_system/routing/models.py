@@ -182,6 +182,8 @@ class RouterWrapper:
         self.graph = graph
 
     def add_stop(self, stop_name: str):
+        self.router = None
+
         stop = Stop.objects.get(name=stop_name)
         stop.in_id = self.graph.add_vertex()
         stop.out_id = self.graph.add_vertex()
@@ -204,6 +206,8 @@ class RouterWrapper:
     def add_bus(
         self, bus_name: str, stops: typing.List[str], one_direction: bool,
     ):
+        self.router = None
+
         bus_velocity = Bus.objects.get(name=bus_name).velocity
         distances: typing.List[int] = [0]
 
