@@ -57,8 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'transport_system.wsgi.application'
 
-
-if 'test' in sys.argv:
+if 'pytest' in sys.argv[0]:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
