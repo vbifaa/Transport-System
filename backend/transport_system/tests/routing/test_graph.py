@@ -27,7 +27,9 @@ class TestGraph:
         edge_id00_id = graph.add_edge(edge_id00)
 
         assert 2 == graph.get_vertex_count()
-        assert [edge_id01_id, edge_id00_id] == list(graph.get_incident_edges(v0))
+        assert [edge_id01_id, edge_id00_id] == list(
+            graph.get_incident_edges(v0),
+        )
         assert [] == list(graph.get_incident_edges(v1))
         self.assert_edge_and_graph_edge(
             edge=edge_id00,

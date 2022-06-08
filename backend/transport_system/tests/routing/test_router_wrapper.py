@@ -1,6 +1,6 @@
 import pytest
 
-from routing.models import Edge, Graph, GraphEdge, RoutePart, RouterWrapper
+from routing.models import Graph, GraphEdge, RoutePart, RouterWrapper
 from transport.models import Stop
 
 

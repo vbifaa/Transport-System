@@ -1,4 +1,3 @@
-import json
 import typing
 from dataclasses import dataclass
 
@@ -49,10 +48,9 @@ def map_route(request):
     response = route(request._request)
     if response.status_code != 200:
         return response
-    res = json.loads(response.rendered_content.decode('utf-8'))
 
     map_route = convert_to_map_route(
-        route=res['items'], to_st=request.GET['to'],
+        route=response.data['items'], to_st=request.GET['to'],
     )
     draw_route(
         route=map_route,
