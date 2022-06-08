@@ -110,7 +110,7 @@ class BusViewSet(viewsets.ModelViewSet):
         rw.add_bus(bus_name=data['name'], stops=stops, one_direction=is_round)
 
     def _create_map_bus(self, data):
-        draw_settings.map_build = False
+        draw_settings.dwg = None
         data.pop('velocity')
         data['type'] = 'ROUND' if data.pop('is_roundtrip') else 'BACKWARD'
         MapBus.objects.create(**data)
