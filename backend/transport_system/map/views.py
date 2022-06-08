@@ -10,7 +10,7 @@ from routing.views import route
 
 from .drawing import draw_map, draw_route
 from .gluing import gluing
-from .models import MapBus
+from .models import MapBus, MapStop
 
 
 @dataclass
@@ -26,6 +26,8 @@ settings = DrawSettings()
 @api_view(['get'])
 def map(request):
     if settings.dwg is None:
+        MapStop.objects.all().delete()
+
         settings.dwg = svgwrite.Drawing()
         settings.max_x_map_id, settings.max_y_map_id = gluing()
         draw_map(
@@ -33,7 +35,6 @@ def map(request):
             max_y_map_id=settings.max_y_map_id,
             dwg=settings.dwg,
         )
-        settings.map_build = True
 
     return HttpResponse(settings.dwg.tostring(), content_type='image/svg+xml')
 

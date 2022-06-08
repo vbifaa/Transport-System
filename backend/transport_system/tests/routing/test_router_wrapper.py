@@ -1,12 +1,12 @@
 import pytest
 
-from routing.models import Edge, Graph, RoutePart, RouterWrapper
+from routing.models import Edge, Graph, GraphEdge, RoutePart, RouterWrapper
 from transport.models import Stop
 
 
 class TestRouterWrapper:
 
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_add_stop(self):
         router_wrapper = RouterWrapper(Graph())
         stop_name = 'Astankino'
@@ -17,10 +17,13 @@ class TestRouterWrapper:
         assert len(RoutePart.objects.all()) == 0
 
         router_wrapper.add_stop(stop_name)
-        assert router_wrapper.graph._edges == [
-            Edge(from_v=0, to_v=1, weight=5),
-        ]
-        assert router_wrapper.graph._incidence_lists == [[0], []]
+        assert GraphEdge.objects.count() == 1
+        obj = GraphEdge.objects.all()[0]
+
+        assert obj.from_v == 0
+        assert obj.to_v == 1
+        assert obj.weight == 5
+
         assert router_wrapper.router is None
 
         assert len(RoutePart.objects.all()) == 1
@@ -65,7 +68,7 @@ class TestRouterWrapper:
             ),
         ],
     )
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_add_not_round_bus(
         self,
         response_buses,
@@ -138,7 +141,7 @@ class TestRouterWrapper:
             ),
         ],
     )
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_add_round_bus(
         self,
         response_buses,
@@ -181,9 +184,9 @@ class TestRouterWrapper:
         to_id = Stop.objects.get(name=to_stop).in_id
 
         edge_id = -1
-        for e_id in r_graph.get_incident_edges(from_id):
-            if r_graph.get_edge(e_id).to_v == to_id:
-                edge_id = e_id
+        for edge in r_graph.get_incident_edges(from_id):
+            if edge.to_v == to_id:
+                edge_id = edge.id
                 break
         assert edge_id != -1
 
@@ -270,7 +273,7 @@ class TestRouterWrapper:
             ),
         ],
     )
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_build_path(
         self,
         router_wrapper: RouterWrapper,
@@ -314,7 +317,7 @@ class TestRouterWrapper:
             ),
         ],
     )
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_no_path(self, from_stop, to_stop, router_wrapper):
         from_id = Stop.objects.get(name=from_stop).in_id
         to_id = Stop.objects.get(name=to_stop).in_id

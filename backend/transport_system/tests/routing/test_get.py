@@ -6,7 +6,7 @@ from ..mocks import mock_router
 class TestGetAPI:
 
     @mock_router
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_correct_one_bus(self, client, router_wrapper):
         response = client.get('/api/route/?from=Universam&to=Biryusinka')
 
@@ -25,7 +25,7 @@ class TestGetAPI:
         }
 
     @mock_router
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_correct_many_buses(self, client, router_wrapper):
         response = client.get(
             '/api/route/?from=Rossoshanskaya ulitsa&to=Biryulyovo Tovarnaya',
@@ -47,7 +47,7 @@ class TestGetAPI:
         }
 
     @mock_router
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_no_path(self, client, router_wrapper):
         response = client.get('/api/route/?from=Universam&to=Rasskazovka')
 

@@ -2,27 +2,27 @@ from copy import deepcopy
 from functools import wraps
 
 from map.views import settings as draw_settings
-from routing.models import Graph
+from routing.models import Router
 from routing.models import router_wrapper as rw
 
 
 def mock_router(test):
     @wraps(test)
     def wrapper(*args, **kwargs):
-        raw_graph = deepcopy(rw.graph)
+        raw_router = deepcopy(rw.router)
         rw.router = None
 
         if 'router_wrapper' in kwargs:
-            new_graph = kwargs['router_wrapper'].graph
+            new_router = kwargs['router_wrapper'].router
         elif 'router_wrapper_with_stops_only' in kwargs:
-            new_graph = kwargs['router_wrapper_with_stops_only'].graph
+            new_router = kwargs['router_wrapper_with_stops_only'].router
         else:
-            new_graph = Graph()
-        rw.set_graph(new_graph)
+            new_router = Router(empty=True)
+        rw.router = new_router
 
         test(*args, **kwargs)
 
-        rw.set_graph(raw_graph)
+        rw.router = raw_router
 
     return wrapper
 

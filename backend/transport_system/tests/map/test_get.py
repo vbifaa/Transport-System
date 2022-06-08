@@ -23,7 +23,7 @@ class TestGetRouteMap:
 
     @mock_dwg
     @mock_router
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_simple_call(self, client, router_wrapper, map_buses, load_file):
         response = client.get('/api/map/route/?from=Universam&to=Biryusinka')
 

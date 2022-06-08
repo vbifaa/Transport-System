@@ -14,7 +14,7 @@ class TestAllAPI:
             pytest.param('scenario_2.json'),
         ],
     )
-    @pytest.mark.django_db(transaction=True)
+    @pytest.mark.django_db(transaction=True, reset_sequences=True)
     def test_all_api(self, client, load_json, file_path):
         scenario = load_json(file_path)
 

@@ -11,36 +11,44 @@ from transport.models import Bus, Stop, compute_distance
 class Edge:
     from_v: int
     to_v: int
-    weight: int
+    weight: float
 
 
-@dataclass
+class GraphVertex(models.Model):
+    count = models.PositiveIntegerField(default=0)
+
+
+class GraphEdge(models.Model):
+    from_v = models.PositiveIntegerField()
+    to_v = models.PositiveIntegerField()
+    weight = models.FloatField()
+
+
 class Graph:
-    _incidence_lists: field(default_factory=typing.List[typing.List[int]])
-    _edges: field(default_factory=typing.List[Edge])
-
-    def __init__(self) -> None:
-        self._incidence_lists = []
-        self._edges = []
 
     def get_vertex_count(self) -> int:
-        return len(self._incidence_lists)
+        if GraphVertex.objects.count() == 0:
+            GraphVertex.objects.create(count=0)
+        return GraphVertex.objects.all()[0].count
 
     def get_incident_edges(self, vertex_id: int) -> typing.List[int]:
-        return self._incidence_lists[vertex_id]
+        return GraphEdge.objects.filter(from_v=vertex_id)
 
     def get_edge(self, edge_id) -> Edge:
-        return self._edges[edge_id]
+        return GraphEdge.objects.get(id=edge_id)
 
     def add_vertex(self) -> int:
-        self._incidence_lists.append([])
-        return len(self._incidence_lists) - 1
+        if GraphVertex.objects.count() == 0:
+            GraphVertex.objects.create(count=0)
+        obj = GraphVertex.objects.all()[0]
+        obj.count += 1
+        obj.save()
+        return obj.count - 1
 
-    def add_edge(self, edge: Edge) -> int:
-        edge_id = len(self._edges)
-        self._edges.append(edge)
-        self._incidence_lists[edge.from_v].append(edge_id)
-        return edge_id
+    def add_edge(self, edge: Edge):
+        return GraphEdge.objects.create(
+            from_v=edge.from_v, to_v=edge.to_v, weight=edge.weight,
+        )
 
 
 @dataclass
@@ -59,8 +67,11 @@ class Router:
     )
     graph: Graph
 
-    def __init__(self, graph: Graph) -> None:
-        self.graph = graph
+    def __init__(self, empty=False) -> None:
+        if empty:
+            self._routes_internal_data = []
+            return
+        graph = Graph()
         self._initialize(graph)
 
         vertex_count = graph.get_vertex_count()
@@ -76,8 +87,7 @@ class Router:
         for vertex in range(vertex_count):
             self._routes_internal_data.append([None] * vertex_count)
 
-            for edge_id in graph.get_incident_edges(vertex):
-                edge = graph.get_edge(edge_id)
+            for edge in graph.get_incident_edges(vertex):
                 route_internal_data = self._routes_internal_data[vertex][
                     edge.to_v
                 ]
@@ -86,7 +96,7 @@ class Router:
                     self._routes_internal_data[vertex][
                         edge.to_v
                     ] = RouteInternalData(
-                        weight=edge.weight, prev_edge_id=edge_id,
+                        weight=edge.weight, prev_edge_id=edge.id,
                     )
             self._routes_internal_data[vertex][vertex] = RouteInternalData(
                 weight=0, prev_edge_id=None,
@@ -142,9 +152,10 @@ class Router:
 
         edge_id = route_data.prev_edge_id
         edges = []
+        graph = Graph()
         while edge_id is not None:
             edges.append(edge_id)
-            to_v = self.graph.get_edge(edge_id).from_v
+            to_v = graph.get_edge(edge_id).from_v
             edge_id = self._routes_internal_data[vertex_from][
                 to_v
             ].prev_edge_id
@@ -153,6 +164,11 @@ class Router:
 
 
 class RoutePart(models.Model):
+    id = models.OneToOneField(
+        GraphEdge,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class RoutePartType(models.TextChoices):
         BUS = 'BUS'
@@ -178,9 +194,6 @@ class RouterWrapper:
     router: typing.Optional[Router] = None
     bus_time_wait: float = 5.0
 
-    def set_graph(self, graph: Graph):
-        self.graph = graph
-
     def add_stop(self, stop_name: str):
         self.router = None
 
@@ -189,7 +202,7 @@ class RouterWrapper:
         stop.out_id = self.graph.add_vertex()
         stop.save()
 
-        edge_id = self.graph.add_edge(
+        graph_edge_obj = self.graph.add_edge(
             Edge(
                 from_v=stop.in_id,
                 to_v=stop.out_id,
@@ -197,7 +210,7 @@ class RouterWrapper:
             ),
         )
         RoutePart.objects.create(
-            id=edge_id,
+            id=graph_edge_obj,
             type=RoutePart.RoutePartType.WAIT,
             name=stop_name,
             time=self.bus_time_wait,
@@ -225,7 +238,7 @@ class RouterWrapper:
                 to_stop = Stop.objects.get(name=stops[to_stop_id])
 
                 weight = distances[to_stop_id] - distances[from_stop_id]
-                edge_id = self.graph.add_edge(
+                graph_edge_obj = self.graph.add_edge(
                     Edge(
                         from_v=from_stop.out_id,
                         to_v=to_stop.in_id,
@@ -233,7 +246,7 @@ class RouterWrapper:
                     )
                 )
                 RoutePart.objects.create(
-                    id=edge_id,
+                    id=graph_edge_obj,
                     type=RoutePart.RoutePartType.BUS,
                     name=bus_name,
                     time=weight,
@@ -247,7 +260,7 @@ class RouterWrapper:
         self, vertex_from_id, vertex_to_id,
     ) -> typing.Optional[tuple]:
         if self.router is None:
-            self.router = Router(self.graph)
+            self.router = Router()
         res = self.router.build_path(
             vertex_from=vertex_from_id, vertex_to=vertex_to_id,
         )
