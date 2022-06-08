@@ -1,5 +1,5 @@
 from routing.models import Edge, Graph
-from routing.models import RouteInternalData as E
+from routing.models import RouteInternalData as E  # noqa: N814
 from routing.models import Router
 
 
