@@ -15,9 +15,7 @@ services:
       - ../backend/transport_system/.env
 
   backend:
-    build: 
-      context: ../backend/transport_system 
-      dockerfile: Dockerfile 
+    image: vbifaa/transport_system:latest
     restart: always
     volumes:
       - static_value:/code/static/
