@@ -89,4 +89,4 @@ def convert_to_map_route(route: list, to_st: str) -> list:
             map_stops.append(bus.stops[st_id])
 
         res.append({'color': bus.color, 'stops': map_stops})
-    return res
+    return []
