@@ -1,3 +1,4 @@
+import copy
 import typing
 from dataclasses import dataclass
 
@@ -52,18 +53,18 @@ def map_route(request):
     map_route = convert_to_map_route(
         route=response.data['items'], to_st=request.GET['to'],
     )
+    route_dwg = copy.deepcopy(settings.dwg)
     draw_route(
         route=map_route,
         max_x_map_id=settings.max_x_map_id,
         max_y_map_id=settings.max_y_map_id,
-        dwg=settings.dwg,
+        dwg=route_dwg,
     )
-    return HttpResponse(settings.dwg.tostring(), content_type='image/svg+xml')
+    return HttpResponse(route_dwg.tostring(), content_type='image/svg+xml')
 
 
 def convert_to_map_route(route: list, to_st: str) -> list:
     assert len(route) % 2 == 0
-    print(route)
 
     res = []
     for id in range(len(route) // 2):
